@@ -40,3 +40,67 @@
           que você joga.
         </p>
       </div>
+
+      <div class="catalogo">
+        <!-- Painel de filtros: conteúdo complementar ao catálogo -->
+        <aside class="filtros" aria-labelledby="titulo-filtros">
+          <h2 id="titulo-filtros">Filtrar acervo</h2>
+
+          <form id="form-filtros">
+            <div class="campo">
+              <label class="campo__rotulo" for="busca">Buscar por título ou estúdio</label>
+              <input
+                type="search"
+                id="busca"
+                name="busca"
+                placeholder="ex.: Celeste"
+                aria-describedby="ajuda-busca"
+              />
+              <p class="campo__ajuda" id="ajuda-busca">
+                A lista é atualizada enquanto você digita.
+              </p>
+            </div>
+
+            <div class="campo">
+              <label class="campo__rotulo" for="genero">Gênero</label>
+              <select id="genero" name="genero">
+                <option value="todos">Todos os gêneros</option>
+                <option value="Aventura">Aventura</option>
+                <option value="Ação">Ação</option>
+                <option value="Estratégia">Estratégia</option>
+                <option value="Plataforma">Plataforma</option>
+                <option value="Puzzle">Puzzle</option>
+                <option value="RPG">RPG</option>
+                <option value="Roguelike">Roguelike</option>
+                <option value="Simulação">Simulação</option>
+                <option value="Sobrevivência">Sobrevivência</option>
+                <option value="Outro">Outro</option>
+              </select>
+            </div>
+
+            <fieldset>
+              <legend>Plataforma</legend>
+              <div class="opcoes">
+                <span class="opcao">
+                  <input type="checkbox" id="plat-pc" name="plataforma" value="pc" />
+                  <label for="plat-pc">PC</label>
+                </span>
+                <span class="opcao">
+                  <input
+                    type="checkbox"
+                    id="plat-playstation"
+                    name="plataforma"
+                    value="playstation"
+                  />
+                  <label for="plat-playstation">PlayStation</label>
+                </span>
+                <span class="opcao">
+                  <input type="checkbox" id="plat-xbox" name="plataforma" value="xbox" />
+                  <label for="plat-xbox">Xbox</label>
+                </span>
+                <span class="opcao">
+                  <input type="checkbox" id="plat-switch" name="plataforma" value="switch" />
+                  <label for="plat-switch">Switch</label>
+                </span>
+              </div>
+            </fieldset>
