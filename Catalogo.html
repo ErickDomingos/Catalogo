@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Catálogo completo — Pixelteca</title>
+    <title>Catálogo completo — GameShelf</title>
     <meta
       name="description"
-      content="Os 36 jogos do acervo da Pixelteca com filtros por gênero e plataforma, ficha técnica, duração média e nota."
+      content="Os 36 jogos do acervo do GameShelf com filtros por gênero e plataforma, ficha técnica, tempo estimado de campanha e nota."
     />
     <link rel="icon" href="img/logo.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="css/estilo.css" />
@@ -18,7 +18,7 @@
       <div class="envolucro cabecalho__interno">
         <a class="marca" href="index.html">
           <img src="img/logo.svg" alt="" width="40" height="40" />
-          <span class="marca__nome">Pixelteca</span>
+          <span class="marca__nome">GameShelf</span>
         </a>
         <nav aria-label="Navegação principal">
           <ul class="menu">
@@ -32,28 +32,28 @@
       </div>
     </header>
 
-    <main id="conteudo" class="envolucro">
+    <main tabindex="-1" id="conteudo" class="envolucro">
       <div class="secao__cabecalho pagina__topo">
-        <h1>Catálogo completo</h1>
-        <p>
-          36 jogos em 9 gêneros. Use os filtros para reduzir a lista ao
-          que você joga.
-        </p>
+        <p class="sobretitulo">SUA PRÓXIMA JORNADA</p>
+        <h1>Grandes jogos.<br /><span class="texto-destaque">A sua seleção.</span></h1>
+        <p>De Los Santos às Terras Intermédias. Explore 36 jogos conhecidos e deixe no catálogo apenas o que combina com você.</p>
+        <p class="campo__ajuda">Notas da crítica com fonte e plataforma. Tempo de campanha em faixas estimadas.</p>
       </div>
 
       <div class="catalogo">
         <!-- Painel de filtros: conteúdo complementar ao catálogo -->
         <aside class="filtros" aria-labelledby="titulo-filtros">
           <h2 id="titulo-filtros">Filtrar acervo</h2>
+          <noscript><p>Ative o JavaScript para usar filtros e o acervo pessoal. Os 36 jogos e suas fichas continuam disponíveis abaixo.</p></noscript>
 
-          <form id="form-filtros">
+          <form id="form-filtros" hidden>
             <div class="campo">
               <label class="campo__rotulo" for="busca">Buscar por título ou estúdio</label>
               <input
                 type="search"
                 id="busca"
                 name="busca"
-                placeholder="ex.: Celeste"
+                placeholder="ex.: GTA, God of War ou Rockstar"
                 aria-describedby="ajuda-busca"
               />
               <p class="campo__ajuda" id="ajuda-busca">
@@ -74,7 +74,10 @@
                 <option value="Roguelike">Roguelike</option>
                 <option value="Simulação">Simulação</option>
                 <option value="Sobrevivência">Sobrevivência</option>
-                <option value="Outro">Outro</option>
+                <option value="Corrida">Corrida</option>
+<option value="Luta">Luta</option>
+<option value="Tiro">Tiro</option>
+<option value="Outro">Outro</option>
               </select>
             </div>
 
@@ -104,315 +107,59 @@
                 </span>
               </div>
             </fieldset>
-            <fieldset>
-              <legend>Duração média</legend>
-              <div class="opcoes opcoes--coluna">
-                <span class="opcao">
-                  <input type="radio" id="dur-todas" name="duracao" value="todas" checked />
-                  <label for="dur-todas">Qualquer duração</label>
-                </span>
-                <span class="opcao">
-                  <input type="radio" id="dur-curta" name="duracao" value="curta" />
-                  <label for="dur-curta">Menos de 10 horas</label>
-                </span>
-                <span class="opcao">
-                  <input type="radio" id="dur-media" name="duracao" value="media" />
-                  <label for="dur-media">De 10 a 30 horas</label>
-                </span>
-                <span class="opcao">
-                  <input type="radio" id="dur-longa" name="duracao" value="longa" />
-                  <label for="dur-longa">Mais de 30 horas</label>
-                </span>
-              </div>
-            </fieldset>
 
-            <div class="campo">
-              <label class="campo__rotulo" for="ordem">Ordenar por</label>
-              <select id="ordem" name="ordem">
-                <option value="titulo">Título (A–Z)</option>
-                <option value="ano">Lançamento (mais recente)</option>
-                <option value="nota">Nota (maior primeiro)</option>
-                <option value="duracao">Duração (mais curto primeiro)</option>
-              </select>
-            </div>
+            <fieldset>
+              <legend>Tempo de campanha</legend>
+              <div class="opcoes opcoes--coluna">
+                <span class="opcao">
+                  <input type="radio" id="dur-todas" name="duracao" value="todas" checked />
+                  <label for="dur-todas">Qualquer duração</label>
+                </span>
+                <span class="opcao">
+                  <input type="radio" id="dur-curta" name="duracao" value="curta" />
+                  <label for="dur-curta">Menos de 10 horas</label>
+                </span>
+                <span class="opcao">
+                  <input type="radio" id="dur-media" name="duracao" value="media" />
+                  <label for="dur-media">De 10 a 30 horas</label>
+                </span>
+                <span class="opcao">
+                  <input type="radio" id="dur-longa" name="duracao" value="longa" />
+                  <label for="dur-longa">Mais de 30 horas</label>
+                </span>
+              </div>
+            </fieldset>
 
-            <div class="filtros__acoes">
-              <button class="botao botao--secundario" type="reset" id="limpar">
-                Limpar filtros
-              </button>
-            </div>
-          </form>
-        </aside>
-
-        <section aria-labelledby="titulo-resultados">
-          <h2 id="titulo-resultados" class="apenas-leitor">Resultados</h2>
-
-          <details class="adicionar-jogo" id="bloco-adicionar">
-            <summary class="adicionar-jogo__abrir">
-              + Adicionar um jogo ao meu acervo
-            </summary>
-            <div class="adicionar-jogo__corpo">
-              <p class="campo__ajuda">
-                Fica salvo só neste navegador — o formulário não envia nada
-                para nenhum servidor. Se você limpar os dados do site ou
-                trocar de navegador, a lista some.
-              </p>
-
-              <div class="aviso" id="retorno-meu-jogo" role="status" hidden>
-                <p id="retorno-meu-jogo-texto"></p>
-              </div>
-
-              <form id="form-meu-jogo" novalidate>
-                <div class="campo">
-                  <label class="campo__rotulo" for="mj-titulo">Título do jogo</label>
-                  <input type="text" id="mj-titulo" name="titulo" required />
-                </div>
-
-                <div class="campo">
-                  <label class="campo__rotulo" for="mj-genero">Gênero</label>
-                  <select id="mj-genero" name="genero">
-                <option value="Aventura">Aventura</option>
-                <option value="Ação">Ação</option>
-                <option value="Estratégia">Estratégia</option>
-                <option value="Plataforma">Plataforma</option>
-                <option value="Puzzle">Puzzle</option>
-                <option value="RPG">RPG</option>
-                <option value="Roguelike">Roguelike</option>
-                <option value="Simulação">Simulação</option>
-                <option value="Sobrevivência">Sobrevivência</option>
-                    <option value="Outro">Outro</option>
-                  </select>
-                </div>
-
-                <fieldset>
-                  <legend>Plataformas</legend>
-                  <div class="opcoes">
-                    <span class="opcao">
-                      <input type="checkbox" id="mj-plat-pc" name="mj-plataforma" value="pc" />
-                      <label for="mj-plat-pc">PC</label>
-                    </span>
-                    <span class="opcao">
-                      <input
-                        type="checkbox"
-                        id="mj-plat-playstation"
-                        name="mj-plataforma"
-                        value="playstation"
-                      />
-                      <label for="mj-plat-playstation">PlayStation</label>
-                    </span>
-                    <span class="opcao">
-                      <input type="checkbox" id="mj-plat-xbox" name="mj-plataforma" value="xbox" />
-                      <label for="mj-plat-xbox">Xbox</label>
-                    </span>
-                    <span class="opcao">
-                      <input
-                        type="checkbox"
-                        id="mj-plat-switch"
-                        name="mj-plataforma"
-                        value="switch"
-                      />
-                      <label for="mj-plat-switch">Switch</label>
-                    </span>
-                  </div>
-                </fieldset>
-
-                <div class="campo">
-                  <label class="campo__rotulo" for="mj-duracao">Duração média (horas)</label>
-                  <input
-                    type="number"
-                    id="mj-duracao"
-                    name="duracao"
-                    min="0"
-                    max="500"
-                    step="1"
-                    aria-describedby="mj-ajuda-duracao"
-                  />
-                  <p class="campo__ajuda" id="mj-ajuda-duracao">
-                    Deixe em branco se não souber; conta como 0h nos filtros.
-                  </p>
-                </div>
-
-                <div class="campo">
-                  <label class="campo__rotulo" for="mj-metacritic">Nota no Metacritic</label>
-                  <input
-                    type="number"
-                    id="mj-metacritic"
-                    name="metacritic"
-                    min="0"
-                    max="100"
-                    step="1"
-                    aria-describedby="mj-ajuda-metacritic"
-                  />
-                  <p class="campo__ajuda" id="mj-ajuda-metacritic">
-                    De 0 a 100. Deixe em branco se não souber.
-                  </p>
-                </div>
-
-                <div class="campo">
-                  <label class="campo__rotulo" for="mj-comunidade">
-                    Nota da comunidade (Steam, Reddit etc.)
-                  </label>
-                  <input
-                    type="number"
-                    id="mj-comunidade"
-                    name="comunidade"
-                    min="0"
-                    max="10"
-                    step="0.1"
-                    aria-describedby="mj-ajuda-comunidade"
-                  />
-                  <p class="campo__ajuda" id="mj-ajuda-comunidade">
-                    De 0 a 10. Use a nota de usuários da fonte que preferir.
-                  </p>
-                </div>
-
-                <div class="campo">
-                  <label class="campo__rotulo" for="mj-resenha">Sua resenha (opcional)</label>
-                  <textarea
-                    id="mj-resenha"
-                    name="resenha"
-                    aria-describedby="mj-ajuda-resenha"
-                  ></textarea>
-                  <p class="campo__ajuda" id="mj-ajuda-resenha">
-                    Um resumo curto do que você achou do jogo.
-                  </p>
-                </div>
-                <button class="botao" type="submit">Adicionar à lista</button>
-              </form>
+            <div class="campo">
+              <label class="campo__rotulo" for="ordem">Ordenar por</label>
+              <select id="ordem" name="ordem">
+                <option value="titulo">Título (A–Z)</option>
+                <option value="ano">Lançamento (mais recente)</option>
+                <option value="nota">Crítica / referência (0–100)</option>
+                <option value="duracao">Duração (mais curto primeiro)</option>
+              </select>
             </div>
-          </details>
 
-          <p class="contador" id="contador" role="status">
-            Mostrando 36 de 36 jogos.
-          </p>
+            <div class="filtros__acoes">
+              <button class="botao botao--secundario" type="reset" id="limpar">
+                Limpar filtros
+              </button>
+            </div>
+          </form>
+        </aside>
 
-          <p class="vazio" id="vazio" hidden>
-            Nenhum jogo combina com esses filtros. Remova uma plataforma ou
-            limpe a busca para ver o acervo inteiro.
-          </p>
+        <section aria-labelledby="titulo-resultados">
+          <h2 id="titulo-resultados" class="apenas-leitor">Resultados</h2>
 
-          <ul class="grade-jogos" id="lista-jogos">
-            <li
-              class="jogo"
-              data-titulo="Hollow Knight"
-              data-genero="Aventura"
-              data-plataformas="pc playstation xbox switch"
-              data-ano="2017"
-              data-nota="9.0"
-              data-horas="27"
-              data-estudio="Team Cherry"
-            >
-              <article class="cartao">
-                <img
-                  class="cartao__capa"
-                  src="img/capas/hollow-knight.svg"
-                  alt="Capa ilustrada de Hollow Knight: três arcos concêntricos em azul-petróleo com um círculo coral deslocado."
-                  width="600"
-                  height="800"
-                  loading="lazy"
-                />
-                <div class="cartao__corpo">
-                  <h3 class="cartao__titulo">Hollow Knight</h3>
-                  <p class="cartao__meta">2017 &middot; Team Cherry &middot; 27 h</p>
-                  <ul class="notas-externas" aria-label="Avaliações externas">
-                    <li class="nota-externa nota-externa--critica">
-                      <span class="nota-externa__rotulo">Metacritic</span>
-                      <span class="nota-externa__valor">90</span>
-                    </li>
-                    <li class="nota-externa nota-externa--jogadores">
-                      <span class="nota-externa__rotulo">Jogadores</span>
-                      <span class="nota-externa__valor">9,2</span>
-                    </li>
-                  </ul>
-                  <p class="cartao__resumo">Exploração em um reino de insetos em ruínas, com mapa aberto e combate exigente.</p>
-                  <ul class="etiquetas">
-                    <li class="etiqueta etiqueta--genero">Aventura</li>
-                    <li class="etiqueta">PC</li>
-                    <li class="etiqueta">PlayStation</li>
-                    <li class="etiqueta">Xbox</li>
-                    <li class="etiqueta">Switch</li>
-                  </ul>
-                  <details class="ficha">
-                    <summary class="ficha__resumo">Ficha técnica</summary>
-                    <dl class="ficha__lista">
-                      <dt>Estúdio</dt>
-                      <dd>Team Cherry</dd>
-                      <dt>Lançamento</dt>
-                      <dd>2017</dd>
-                      <dt>Duração média</dt>
-                      <dd>27 h</dd>
-                      <dt>Nota do acervo</dt>
-                      <dd>9,0 de 10</dd>
-                      <dt>Metacritic (crítica)</dt>
-                      <dd>90 de 100</dd>
-                      <dt>Nota dos jogadores</dt>
-                      <dd>9,2 de 10</dd>
-                      <dt>Por que está aqui</dt>
-                      <dd>O mapa só aparece depois que você compra a carta de cada região.</dd>
-                    </dl>
-                  </details>
-                </div>
-              </article>
-            </li>
-            <li
-              class="jogo"
-              data-titulo="Celeste"
-              data-genero="Plataforma"
-              data-plataformas="pc playstation xbox switch"
-              data-ano="2018"
-              data-nota="9.1"
-              data-horas="8"
-              data-estudio="Maddy Makes Games"
-            >
-              <article class="cartao">
-                <img
-                  class="cartao__capa"
-                  src="img/capas/celeste.svg"
-                  alt="Capa ilustrada de Celeste: montanha angular em azul-petróleo com um sol coral."
-                  width="600"
-                  height="800"
-                  loading="lazy"
-                />
-                <div class="cartao__corpo">
-                  <h3 class="cartao__titulo">Celeste</h3>
-                  <p class="cartao__meta">2018 &middot; Maddy Makes Games &middot; 8 h</p>
-                  <ul class="notas-externas" aria-label="Avaliações externas">
-                    <li class="nota-externa nota-externa--critica">
-                      <span class="nota-externa__rotulo">Metacritic</span>
-                      <span class="nota-externa__valor">92</span>
-                    </li>
-                    <li class="nota-externa nota-externa--jogadores">
-                      <span class="nota-externa__rotulo">Jogadores</span>
-                      <span class="nota-externa__valor">9,3</span>
-                    </li>
-                  </ul>
-                  <p class="cartao__resumo">Plataforma preciso sobre ansiedade e persistência, com assistência de dificuldade embutida.</p>
-                  <ul class="etiquetas">
-                    <li class="etiqueta etiqueta--genero">Plataforma</li>
-                    <li class="etiqueta">PC</li>
-                    <li class="etiqueta">PlayStation</li>
-                    <li class="etiqueta">Xbox</li>
-                    <li class="etiqueta">Switch</li>
-                  </ul>
-                  <details class="ficha">
-                    <summary class="ficha__resumo">Ficha técnica</summary>
-                    <dl class="ficha__lista">
-                      <dt>Estúdio</dt>
-                      <dd>Maddy Makes Games</dd>
-                      <dt>Lançamento</dt>
-                      <dd>2018</dd>
-                      <dt>Duração média</dt>
-                      <dd>8 h</dd>
-                      <dt>Nota do acervo</dt>
-                      <dd>9,1 de 10</dd>
-                      <dt>Metacritic (crítica)</dt>
-                      <dd>92 de 100</dd>
-                      <dt>Nota dos jogadores</dt>
-                      <dd>9,3 de 10</dd>
-                      <dt>Por que está aqui</dt>
-                      <dd>O modo de assistência reduz a velocidade do jogo sem travar o final.</dd>
-                    </dl>
-                  </details>
-                </div>
-              </article>
-            </li>
+          <details class="adicionar-jogo" id="adicionar" hidden>
+            <summary class="adicionar-jogo__abrir">
+              + Adicionar um jogo ao meu acervo
+            </summary>
+            <div class="adicionar-jogo__corpo">
+              <p class="campo__ajuda">
+                O cadastro fica salvo neste navegador quando o armazenamento está disponível. Limpar os dados do navegador apaga seu acervo.
+              </p>
+
+              <div class="aviso" id="retorno-meu-jogo" role="status" hidden>
+                <p id="retorno-meu-jogo-texto"></p>
+              </div>
