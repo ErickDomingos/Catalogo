@@ -1,0 +1,891 @@
+/* =============================================================
+   GameShelf — folha de estilo única
+   Organização: 1 tokens · 2 base · 3 layout · 4 cabeçalho ·
+   5 rodapé · 6 componentes · 7 páginas · 8 responsivo · 9 preferências
+   ============================================================= */
+
+/* ---------- 1. Tokens de projeto (variáveis CSS) ------------- */
+:root {
+  /* Paleta original: roxo profundo, ouro e magenta.
+     A borda dos campos é mais clara para destacar controles. */
+  color-scheme: dark;
+  --cor-fundo: #15131f;
+  --cor-superficie: #1f1c30;
+  --cor-superficie-alta: #292440;
+  --cor-linha: #3a3455;
+  --cor-controle: #8e849f;
+  --cor-texto: #efeaf7;
+  --cor-texto-suave: #b4acc9;
+  --cor-ouro: #f2b441;
+  --cor-magenta: #ff6584;
+  --cor-branco: var(--cor-texto);
+
+  /* Tipografia: 2 famílias */
+  --fonte-titulo: "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+  --fonte-texto: Georgia, "Times New Roman", serif;
+
+  /* Escala tipográfica (razão ~1.25) */
+  --texto-pequeno: 1rem;
+  --texto-base: 1.0625rem;
+  --texto-medio: 1.375rem;
+  --texto-grande: 1.75rem;
+  --texto-enorme: 2.5rem;
+
+  /* Espaçamento (múltiplos de 4px) */
+  --esp-1: 0.25rem;
+  --esp-2: 0.5rem;
+  --esp-3: 1rem;
+  --esp-4: 1.5rem;
+  --esp-5: 2.5rem;
+  --esp-6: 4rem;
+
+  /* Formas e sombras */
+  --raio: 0.5rem;
+  --raio-grande: 1rem;
+  --borda: 2px solid var(--cor-linha);
+  --sombra: 0 2px 0 0 var(--cor-linha);
+
+  --largura-max: 86rem;
+  --largura-leitura: 62ch; /* mantém a linha entre 45 e 90 caracteres */
+}
+
+/* ---------- 2. Base --------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+  font-family: var(--fonte-texto);
+  font-size: var(--texto-base);
+  line-height: 1.65;
+  /* alinhamento à esquerda: evita rios de espaço sem hifenização */
+  text-align: left;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--fonte-titulo);
+  color: var(--cor-texto);
+  line-height: 1.15;
+  margin: 0 0 var(--esp-3);
+}
+
+h1 {
+  font-size: var(--texto-enorme);
+  letter-spacing: -0.02em;
+}
+h2 {
+  font-size: var(--texto-grande);
+}
+h3 {
+  font-size: var(--texto-medio);
+}
+h4 {
+  font-size: var(--texto-base);
+}
+
+p {
+  margin: 0 0 var(--esp-3); /* espaçamento entre parágrafos > 0.5em */
+  max-width: var(--largura-leitura);
+}
+
+a {
+  color: var(--cor-ouro);
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  color: var(--cor-magenta);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Foco visível e consistente em todos os elementos interativos */
+:focus-visible {
+  outline: 3px solid var(--cor-ouro);
+  outline-offset: 3px;
+  border-radius: var(--esp-1);
+}
+
+/* O atributo hidden precisa prevalecer sobre grid/flex dos componentes. */
+[hidden] { display: none !important; }
+button, input, select, textarea { font: inherit; }
+button, summary, .menu__link { min-height: 2.75rem; }
+input, select, textarea, fieldset { min-width: 0; }
+input::placeholder { color: var(--cor-texto-suave); opacity: 1; }
+[aria-invalid="true"] { border-style: dashed; border-color: var(--cor-ouro); }
+.erro-campo { margin: 0; color: var(--cor-ouro); font-size: 1rem; }
+.cartao__titulo, .cartao__resumo, .aviso { overflow-wrap: anywhere; }
+.opcao label { padding-block: 0.25rem; cursor: pointer; }
+.notas-externas { flex-wrap: wrap; }
+.adicionar-jogo__corpo { padding-top: var(--esp-3); }
+.botao:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+
+/* ---------- 3. Layout ------------------------------------- */
+.envolucro {
+  width: 100%;
+  max-width: var(--largura-max);
+  margin-inline: auto;
+  padding-inline: var(--esp-3);
+}
+
+.secao {
+  padding-block: var(--esp-5);
+}
+
+.secao + .secao {
+  border-top: 1px solid var(--cor-linha);
+}
+
+.secao__cabecalho {
+  margin-bottom: var(--esp-4);
+}
+
+.secao__cabecalho p {
+  margin-bottom: 0;
+}
+
+/* Link de atalho para leitores de tela e teclado */
+.pular-link {
+  position: absolute;
+  left: var(--esp-3);
+  top: -4rem;
+  z-index: 10;
+  background-color: var(--cor-ouro);
+  color: var(--cor-fundo);
+  padding: var(--esp-2) var(--esp-3);
+  border-radius: 0 0 var(--raio) var(--raio);
+  transition: top 0.15s ease-out;
+}
+
+.pular-link:focus {
+  top: 0;
+  color: var(--cor-fundo);
+}
+
+/* Conteúdo visível apenas para tecnologias assistivas */
+.apenas-leitor {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---------- 4. Cabeçalho e navegação ----------------------- */
+.cabecalho {
+  background-color: var(--cor-superficie);
+  border-bottom: var(--borda);
+}
+
+.cabecalho__interno {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--esp-2);
+  padding-block: var(--esp-2);
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-2);
+  font-family: var(--fonte-titulo);
+  font-size: var(--texto-medio);
+  font-weight: bold;
+  color: var(--cor-ouro);
+  text-decoration: none;
+}
+
+.marca__nome {
+  letter-spacing: -0.01em;
+}
+
+.menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--esp-1);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu__link {
+  display: block;
+  padding: var(--esp-2) var(--esp-3);
+  font-family: var(--fonte-titulo);
+  text-decoration: none;
+  border-radius: var(--raio);
+  border: 2px solid transparent;
+}
+
+.menu__link:hover {
+  background-color: var(--cor-superficie-alta);
+  border-color: var(--cor-ouro);
+  color: var(--cor-ouro);
+}
+
+/* Página atual: marcada visualmente e por aria-current */
+.menu__link[aria-current="page"] {
+  background-color: var(--cor-ouro);
+  color: var(--cor-fundo);
+}
+
+/* ---------- 5. Rodapé -------------------------------------- */
+.rodape {
+  background-color: var(--cor-superficie-alta);
+  color: var(--cor-texto-suave);
+  padding-block: var(--esp-5);
+  margin-top: var(--esp-6);
+  border-top: var(--borda);
+}
+
+.rodape a {
+  color: var(--cor-texto);
+}
+
+.rodape a:hover {
+  color: var(--cor-ouro);
+}
+
+.rodape h2 {
+  color: var(--cor-ouro);
+  font-size: var(--texto-medio);
+}
+
+.rodape__grade {
+  display: grid;
+  gap: var(--esp-4);
+}
+
+.rodape__lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.rodape__nota {
+  margin-top: var(--esp-4);
+  padding-top: var(--esp-3);
+  border-top: 1px solid var(--cor-linha);
+  font-size: var(--texto-pequeno);
+  max-width: none;
+}
+
+/* ---------- 6. Componentes --------------------------------- */
+
+/* 6.1 Botões */
+.botao {
+  display: inline-block;
+  font-family: var(--fonte-titulo);
+  font-size: var(--texto-base);
+  padding: var(--esp-2) var(--esp-4);
+  border: var(--borda);
+  border-radius: var(--raio);
+  text-decoration: none;
+  cursor: pointer;
+  background-color: var(--cor-ouro);
+  color: var(--cor-fundo);
+  box-shadow: var(--sombra);
+}
+
+.botao:hover {
+  background-color: var(--cor-magenta);
+  border-color: var(--cor-magenta);
+  color: var(--cor-fundo);
+}
+
+.botao--secundario {
+  background-color: transparent;
+  color: var(--cor-texto);
+}
+
+.botao--secundario:hover {
+  background-color: var(--cor-superficie-alta);
+  border-color: var(--cor-ouro);
+  color: var(--cor-ouro);
+}
+
+/* 6.2 Cartão de jogo */
+.grade-jogos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+  gap: var(--esp-4);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cartao {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--cor-superficie);
+  border: var(--borda);
+  border-radius: var(--raio-grande);
+  overflow: hidden;
+}
+
+.cartao:hover,
+.cartao:focus-within {
+  border-color: var(--cor-ouro);
+}
+
+.cartao__capa {
+  width: 100%;
+  height: auto;
+  border-bottom: var(--borda);
+  background-color: var(--cor-superficie-alta);
+}
+
+.cartao__corpo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-2);
+  padding: var(--esp-3);
+  flex-grow: 1;
+}
+
+.cartao__titulo {
+  margin: 0;
+  font-size: var(--texto-medio);
+}
+
+.cartao__meta {
+  margin: 0;
+  font-size: var(--texto-pequeno);
+  color: var(--cor-texto-suave);
+}
+
+.cartao__resumo {
+  margin: 0;
+  font-size: var(--texto-pequeno);
+  color: var(--cor-texto-suave);
+}
+
+/* 6.3 Etiquetas de gênero e plataforma */
+.etiquetas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--esp-1);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.etiqueta {
+  font-family: var(--fonte-titulo);
+  font-size: var(--texto-pequeno);
+  padding: 0.125rem var(--esp-2);
+  border: 1px solid var(--cor-linha);
+  border-radius: var(--raio);
+  background-color: var(--cor-superficie-alta);
+  color: var(--cor-texto-suave);
+}
+
+.etiqueta--genero {
+  background-color: var(--cor-magenta);
+  color: var(--cor-fundo);
+  border-color: var(--cor-magenta);
+}
+
+.etiqueta--pessoal {
+  background-color: var(--cor-superficie);
+  color: var(--cor-ouro);
+  border-color: var(--cor-ouro);
+}
+
+/* 6.3.1 Notas externas (Metacritic e comunidade) */
+.notas-externas {
+  display: flex;
+  gap: var(--esp-2);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nota-externa {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  padding: var(--esp-1) var(--esp-2);
+  border-radius: var(--raio);
+  background-color: var(--cor-superficie-alta);
+  border: 1px solid var(--cor-linha);
+}
+
+.nota-externa__rotulo {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--cor-texto-suave);
+}
+
+.nota-externa__valor {
+  font-family: var(--fonte-titulo);
+  font-weight: bold;
+  font-size: var(--texto-base);
+}
+
+.nota-externa--critica .nota-externa__valor {
+  color: var(--cor-ouro);
+}
+
+.nota-externa--jogadores .nota-externa__valor {
+  color: var(--cor-magenta);
+}
+
+/* 6.6 Botão de remover qualquer jogo do catálogo */
+.botao--remover {
+  align-self: flex-start;
+  margin-top: var(--esp-1);
+  font-size: var(--texto-pequeno);
+  padding: var(--esp-1) var(--esp-3);
+}
+
+.botao--remover:hover {
+  background-color: var(--cor-magenta);
+  border-color: var(--cor-magenta);
+  color: var(--cor-fundo);
+}
+
+/* 6.7 Bloco expansível "Adicionar um jogo" */
+.adicionar-jogo {
+  border: var(--borda);
+  border-radius: var(--raio-grande);
+  background-color: var(--cor-superficie);
+  margin-bottom: var(--esp-4);
+}
+
+.adicionar-jogo__abrir {
+  cursor: pointer;
+  padding: var(--esp-3);
+  font-family: var(--fonte-titulo);
+  color: var(--cor-ouro);
+  list-style: none;
+}
+
+.adicionar-jogo__abrir::-webkit-details-marker {
+  display: none;
+}
+
+.adicionar-jogo[open] .adicionar-jogo__abrir {
+  border-bottom: 1px solid var(--cor-linha);
+}
+
+.adicionar-jogo__corpo {
+  padding: var(--esp-3);
+}
+
+/* 6.4 Detalhes expansíveis (ficha do jogo) */
+.ficha {
+  margin-top: auto;
+  border-top: 1px solid var(--cor-linha);
+  padding-top: var(--esp-2);
+}
+
+.ficha__resumo {
+  font-family: var(--fonte-titulo);
+  color: var(--cor-ouro);
+  cursor: pointer;
+  padding: var(--esp-1) 0;
+}
+
+.ficha__resumo:hover {
+  color: var(--cor-magenta);
+}
+
+.ficha__lista {
+  margin: var(--esp-2) 0 0;
+  font-size: var(--texto-pequeno);
+}
+
+.ficha__lista dt {
+  font-family: var(--fonte-titulo);
+  color: var(--cor-texto-suave);
+}
+
+.ficha__lista dd {
+  margin: 0 0 var(--esp-2);
+}
+
+/* 6.5 Formulários */
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-1);
+  margin-bottom: var(--esp-3);
+}
+
+.campo__rotulo {
+  font-family: var(--fonte-titulo);
+  color: var(--cor-texto);
+}
+
+.campo__ajuda {
+  font-size: var(--texto-pequeno);
+  margin: 0;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="search"],
+input[type="url"],
+input[type="number"],
+select,
+textarea {
+  font-family: var(--fonte-texto);
+  font-size: var(--texto-base);
+  color: var(--cor-texto);
+  background-color: var(--cor-superficie);
+  padding: var(--esp-2);
+  border: var(--borda);
+  border-radius: var(--raio);
+  width: 100%;
+}
+
+textarea {
+  min-height: 8rem;
+  resize: vertical;
+}
+
+fieldset {
+  border: var(--borda);
+  border-radius: var(--raio);
+  padding: var(--esp-3);
+  margin: 0 0 var(--esp-3);
+}
+
+legend {
+  font-family: var(--fonte-titulo);
+  color: var(--cor-ouro);
+  padding-inline: var(--esp-2);
+}
+
+.opcoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--esp-3);
+}
+
+.opcao {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-2);
+}
+
+.opcoes--coluna {
+  flex-direction: column;
+  gap: var(--esp-2);
+}
+
+.opcao input {
+  width: 1.15rem;
+  height: 1.15rem;
+  accent-color: var(--cor-ouro);
+  flex-shrink: 0;
+}
+
+/* Mensagem de retorno do formulário */
+.aviso {
+  border: var(--borda);
+  border-left-width: 8px;
+  border-left-color: var(--cor-ouro);
+  border-radius: var(--raio);
+  background-color: var(--cor-superficie-alta);
+  padding: var(--esp-3);
+  margin-bottom: var(--esp-4);
+}
+
+.aviso p {
+  margin-bottom: 0;
+}
+
+.aviso[hidden] {
+  display: none;
+}
+
+/* ---------- 7. Páginas ------------------------------------- */
+
+/* 7.1 Destaque da página inicial */
+.destaque {
+  display: grid;
+  gap: var(--esp-4);
+  align-items: center;
+  padding-block: var(--esp-5);
+}
+
+.destaque__texto p {
+  font-size: 1.25rem;
+  line-height: 1.6;
+}
+
+.destaque__acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--esp-3);
+}
+
+.destaque__figura {
+  margin: 0;
+  max-width: 17rem;
+}
+
+.destaque__figura img {
+  border: var(--borda);
+  border-radius: var(--raio-grande);
+}
+
+.destaque__figura figcaption {
+  font-size: var(--texto-pequeno);
+  margin-top: var(--esp-2);
+}
+
+/* 7.2 Números do acervo */
+.numeros {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: var(--esp-3);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.numeros li {
+  background-color: var(--cor-superficie);
+  border: var(--borda);
+  border-radius: var(--raio);
+  padding: var(--esp-3);
+}
+
+.numeros strong {
+  display: block;
+  font-family: var(--fonte-titulo);
+  font-size: var(--texto-grande);
+  color: var(--cor-ouro);
+}
+
+/* 7.2.1 Topo das páginas internas */
+.pagina__topo {
+  padding-top: var(--esp-5);
+}
+
+/* 7.3 Catálogo: filtros + resultados */
+.catalogo {
+  display: grid;
+  gap: var(--esp-5);
+  align-items: start;
+  padding-block: var(--esp-5);
+}
+
+.filtros {
+  background-color: var(--cor-superficie);
+  border: var(--borda);
+  border-radius: var(--raio-grande);
+  padding: var(--esp-3);
+}
+
+.filtros h2 {
+  font-size: var(--texto-medio);
+  margin-bottom: var(--esp-3);
+}
+
+.filtros__acoes {
+  display: flex;
+  gap: var(--esp-2);
+  flex-wrap: wrap;
+}
+
+.contador {
+  font-family: var(--fonte-titulo);
+  color: var(--cor-texto-suave);
+  margin-bottom: var(--esp-3);
+}
+
+.vazio {
+  border: 2px dashed var(--cor-ouro);
+  border-radius: var(--raio-grande);
+  padding: var(--esp-4);
+  text-align: center;
+}
+
+.vazio[hidden] {
+  display: none;
+}
+
+/* 7.4 Conteúdo textual longo */
+.texto-corrido h2 {
+  margin-top: var(--esp-4);
+}
+
+.texto-corrido ul {
+  max-width: var(--largura-leitura);
+  padding-left: var(--esp-4);
+}
+
+.texto-corrido li {
+  margin-bottom: var(--esp-2);
+}
+
+/* ---------- 8. Responsivo (mobile first) ------------------- */
+
+/* Tablet e telas intermediárias */
+@media (min-width: 48em) {
+  :root {
+    --texto-enorme: 3rem;
+  }
+
+  .destaque {
+    grid-template-columns: 3fr 2fr;
+  }
+
+  .destaque__figura {
+    justify-self: end;
+    max-width: 18rem;
+  }
+
+  .rodape__grade {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Desktop */
+@media (min-width: 64em) {
+  .envolucro {
+    padding-inline: var(--esp-4);
+  }
+
+  .catalogo {
+    grid-template-columns: 17rem minmax(0, 1fr);
+  }
+
+  /* Páginas em que o conteúdo principal vem antes do painel lateral */
+  .catalogo--invertido {
+    grid-template-columns: minmax(0, 1fr) 18rem;
+  }
+
+  .filtros {
+    position: sticky;
+    top: var(--esp-3);
+    max-height: calc(100vh - 2 * var(--esp-3));
+    overflow-y: auto;
+  }
+
+  .rodape__grade {
+    grid-template-columns: 2fr 1fr 1fr;
+  }
+}
+
+/* ---------- 9. Preferências do usuário --------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (max-width: 47.99em) {
+  .cabecalho__interno { flex-direction: column; align-items: flex-start; }
+  .menu__link { padding-inline: 0.65rem; }
+  .catalogo { gap: var(--esp-4); }
+  .filtros form { display: grid; gap: var(--esp-2); }
+}
+
+/* ---------- 10. Coleção de grandes jogos ------------------- */
+body { background-image: radial-gradient(ellipse at 75% 0%, #292440 0%, transparent 40rem); }
+.cabecalho { border-bottom: 1px solid var(--cor-linha); }
+.marca__nome { letter-spacing: -0.045em; }
+.sobretitulo { font-family: var(--fonte-titulo); color: var(--cor-magenta); font-weight: 700; letter-spacing: 0.13em; font-size: 1rem; }
+.texto-destaque { color: var(--cor-ouro); }
+.destaque { padding-block: clamp(2.5rem, 6vw, 6rem); gap: 3rem; }
+.destaque h1 { font-size: clamp(2.4rem, 4.7vw, 4.4rem); line-height: 1.05; }
+.destaque__texto .sobretitulo { font-size: 1rem; }
+.destaque__texto > p:not(.sobretitulo) { color: var(--cor-texto-suave); }
+.destaque__texto .destaque__rodape { margin-top: 1.5rem; font-size: 1rem; font-family: var(--fonte-titulo); }
+.destaque__figura { max-width: 100%; width: 100%; overflow: hidden; border: 1px solid var(--cor-linha); border-radius: 1.2rem; background: var(--cor-superficie); box-shadow: 0 24px 80px #00000040; }
+.destaque__figura img { border: 0; border-radius: 0; width: 100%; aspect-ratio: 460 / 215; }
+.destaque__figura figcaption { padding: 1.5rem; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.destaque__figura figcaption strong { font-family: var(--fonte-titulo); font-size: 1.7rem; line-height: 1.2; }
+.destaque__figura figcaption > span:not(.sobretitulo) { color: var(--cor-texto-suave); }
+.destaque__figura figcaption a { margin-top: 0.5rem; }
+.botao { border-color: var(--cor-ouro); box-shadow: none; font-weight: 700; transition: background-color 150ms ease, border-color 150ms ease; }
+.botao--secundario { border-color: var(--cor-controle); font-weight: 400; }
+button:disabled { cursor: default; opacity: 0.55; }
+.secao__cabecalho--linha { display: flex; justify-content: space-between; align-items: end; gap: 1rem; flex-wrap: wrap; }
+.secao__cabecalho--linha .sobretitulo { margin-bottom: 0.5rem; }
+.grade-jogos { grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr)); gap: 1.5rem; }
+.cartao { border-width: 1px; box-shadow: 0 8px 24px #00000020; transition: border-color 150ms ease; }
+.cartao__capa { aspect-ratio: 460 / 215; object-fit: cover; border: 0; }
+.cartao__corpo { padding: 1.35rem; gap: 1rem; }
+.cartao__titulo { font-size: 1.4rem; line-height: 1.2; }
+.cartao__kicker { color: var(--cor-magenta); font-family: var(--fonte-titulo); font-weight: 700; font-size: 1rem; margin: 0; }
+.cartao__kicker span { color: var(--cor-texto-suave); font-weight: 400; }
+.cartao__link { margin-top: auto; font-family: var(--fonte-titulo); }
+.avaliacao { display: flex; gap: 0.9rem; align-items: center; padding: 0.9rem; border-radius: 0.6rem; background: var(--cor-superficie-alta); }
+.avaliacao__numero { color: var(--cor-ouro); font-family: var(--fonte-titulo); font-size: 2rem; line-height: 1; }
+.avaliacao__numero small { color: var(--cor-texto-suave); display: block; font-size: 1rem; font-weight: 400; margin-top: 0.4rem; }
+.avaliacao__rotulo { display: block; font-family: var(--fonte-titulo); font-weight: 700; }
+.avaliacao a { font-size: 1rem; color: var(--cor-texto-suave); }
+.dados-principais { display: grid; gap: 0.85rem; margin: 0; padding-top: 0.2rem; }
+.dados-principais dt { color: var(--cor-texto-suave); font-size: 1rem; font-family: var(--fonte-titulo); }
+.dados-principais dd { margin: 0.1rem 0 0; font-size: 1rem; overflow-wrap: anywhere; }
+.dados-principais small { display: block; color: var(--cor-texto-suave); font-size: 1rem; }
+.fonte-nota { margin-top: 1rem; font-size: 1rem; color: var(--cor-texto-suave); overflow-wrap: anywhere; }
+.botao--remover { width: 100%; border-color: var(--cor-controle); }
+.acervo-acoes { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-bottom: 1rem; }
+.acervo-acoes + .campo__ajuda { margin-bottom: 1rem; }
+.filtros { border-width: 1px; }
+input[type="text"], input[type="email"], input[type="search"], input[type="url"], input[type="number"], select, textarea { border-color: var(--cor-controle); }
+.recursos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 1.5rem; }
+.recursos article { padding: 1.6rem; border: 1px solid var(--cor-linha); border-radius: 1rem; background: var(--cor-superficie); }
+.recursos p { color: var(--cor-texto-suave); margin: 0; }
+.recurso-numero { color: var(--cor-magenta); font-family: var(--fonte-titulo); font-size: 1.4rem; display: block; margin-bottom: 1rem; }
+.sobre-dados { margin-top: 2rem; padding: 1.3rem; border: 1px solid var(--cor-linha); border-radius: 0.7rem; }
+.sobre-dados summary { cursor: pointer; font-family: var(--fonte-titulo); color: var(--cor-ouro); }
+.sobre-dados p { margin-top: 1rem; max-width: 85ch; }
+.rodape { background: var(--cor-superficie); border-top-width: 1px; }
+.pagina__topo h1 { font-size: clamp(2.5rem, 4vw, 3.7rem); }
+@media (min-width: 64em) {
+  .catalogo { grid-template-columns: 16rem minmax(0, 1fr); gap: 2rem; }
+  .catalogo--invertido { grid-template-columns: minmax(0, 1fr) 18rem; }
+  .grade-destaques { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 30em) {
+  .destaque h1 { font-size: 2.4rem; }
+  .cartao__corpo { padding: 1rem; }
+  .acervo-acoes .botao { width: 100%; }
+}
+
+/* ---------- 11. Listas pessoais e consoles ---------------- */
+.minhas-listas { margin-bottom: 1.5rem; padding: clamp(1rem, 2vw, 1.6rem); border: 1px solid var(--cor-linha); border-radius: 1rem; background: var(--cor-superficie); }
+.minhas-listas h2 { font-size: clamp(1.5rem, 2.5vw, 2rem); }
+.minhas-listas > p { color: var(--cor-texto-suave); }
+.minhas-listas > .sobretitulo { color: var(--cor-magenta); }
+.listas-atalhos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 8rem), 1fr)); gap: 0.6rem; margin-block: 1.2rem; }
+.lista-atalho { display: flex; flex-direction: column; align-items: flex-start; gap: 0.35rem; min-height: 5rem; padding: 0.85rem; background: var(--cor-superficie-alta); color: var(--cor-texto); border: 1px solid var(--cor-controle); border-radius: 0.65rem; font-family: var(--fonte-titulo); text-align: left; cursor: pointer; }
+.lista-atalho strong { color: var(--cor-ouro); font-size: 1.6rem; line-height: 1; }
+.lista-atalho[aria-pressed="true"] { border: 2px solid var(--cor-ouro); padding: calc(0.85rem - 1px); }
+.lista-atalho[aria-pressed="true"] span { text-decoration: underline; text-underline-offset: 0.2em; }
+.estado-jogo { padding-top: 0.8rem; border-top: 1px solid var(--cor-linha); }
+.estado-jogo select { width: 100%; margin-top: 0.4rem; }
+.jogo[data-lista="quero"] .estado-jogo label, .jogo[data-lista="jogando"] .estado-jogo label, .jogo[data-lista="joguei"] .estado-jogo label, .jogo[data-lista="zerado"] .estado-jogo label { color: var(--cor-ouro); }
+.cartao__colecao { align-self: flex-start; margin: 0; padding: 0.25rem 0.6rem; background: var(--cor-superficie-alta); border-radius: 0.3rem; color: var(--cor-ouro); font-family: var(--fonte-titulo); font-size: 1rem; }

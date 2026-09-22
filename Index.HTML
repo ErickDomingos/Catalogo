@@ -3,14 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Catálogo completo — Pixelteca</title>
+    <title>GameShelf — catálogo de jogos</title>
     <meta
       name="description"
-      content="Os 36 jogos do acervo da Pixelteca com filtros por gênero e plataforma, ficha técnica, duração média e nota."
+      content="GameShelf é um catálogo de 128 jogos conhecidos, com ficha técnica, gênero, duração e plataformas de cada título."
     />
     <link rel="icon" href="img/logo.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="css/estilo.css" />
   </head>
+
   <body>
     <a class="pular-link" href="#conteudo">Pular para o conteúdo</a>
 
@@ -18,262 +19,113 @@
       <div class="envolucro cabecalho__interno">
         <a class="marca" href="index.html">
           <img src="img/logo.svg" alt="" width="40" height="40" />
-          <span class="marca__nome">Pixelteca</span>
+          <span class="marca__nome">GameShelf</span>
         </a>
+
         <nav aria-label="Navegação principal">
           <ul class="menu">
-            <li><a class="menu__link" href="index.html">Início</a></li>
             <li>
-              <a class="menu__link" href="catalogo.html" aria-current="page">Catálogo</a>
+              <a class="menu__link" href="index.html" aria-current="page">
+                Início
+              </a>
             </li>
-            <li><a class="menu__link" href="sugestoes.html">Sugerir um jogo</a></li>
+            <li>
+              <a class="menu__link" href="catalogo.html">Catálogo</a>
+            </li>
+            <li>
+              <a class="menu__link" href="sugestoes.html">Sugerir um jogo</a>
+            </li>
           </ul>
         </nav>
       </div>
     </header>
 
-    <main id="conteudo" class="envolucro">
-      <div class="secao__cabecalho pagina__topo">
-        <h1>Catálogo completo</h1>
-        <p>
-          36 jogos em 9 gêneros. Use os filtros para reduzir a lista ao
-          que você joga.
+    <main tabindex="-1" id="conteudo">
+      <section class="envolucro destaque" aria-labelledby="titulo-principal">
+        <div class="destaque__texto">
+          <p class="sobretitulo">UM LUGAR PARA OS SEUS JOGOS</p>
+
+          <h1 id="titulo-principal">
+            A próxima grande<br />
+            <span class="texto-destaque">história é sua.</span>
+          </h1>
+
+          <p>
+            Reencontre os favoritos. Descubra sua próxima aventura. Compare
+            jogos, confira a crítica e monte uma seleção com a sua cara.
+          </p>
+
+          <div class="destaque__acoes">
+            <a class="botao" href="catalogo.html">
+              Explorar catálogo <span aria-hidden="true">↗</span>
+            </a>
+            <a class="botao botao--secundario" href="catalogo.html#adicionar">
+              Adicionar um jogo
+            </a>
+          </div>
+
+          <p class="destaque__rodape">
+            128 títulos · 13 gêneros · sua seleção, no seu ritmo
+          </p>
+        </div>
+
+        <figure class="destaque__figura">
+          <img
+            src="img/capas/red-dead-redemption-2.jpg"
+            alt="Arte promocional de Red Dead Redemption 2, com Arthur Morgan em destaque"
+            width="460"
+            height="215"
+            fetchpriority="high"
+          />
+          <figcaption>
+            <span class="sobretitulo">EM DESTAQUE</span>
+            <strong>Red Dead Redemption 2</strong>
+            <span>Rockstar Games · Aventura · 2018</span>
+            <a href="catalogo.html#base-red-dead-redemption-2">
+              Conhecer o jogo <span aria-hidden="true">↗</span>
+            </a>
+          </figcaption>
+        </figure>
+      </section>
+
+      <!-- PRÓXIMO BLOCO: cartões de jogos em destaque -->
+
+      <!-- BLOCO FINAL: recursos do catálogo e critérios dos dados -->
+    </main>
+
+    <footer class="rodape">
+      <div class="envolucro">
+        <div class="rodape__grade">
+          <div>
+            <h2>GameShelf</h2>
+            <p>
+              Seu próximo jogo começa aqui. Fichas completas, notas com fonte
+              e uma seleção que você pode personalizar.
+            </p>
+          </div>
+
+          <nav aria-label="Navegação do rodapé">
+            <h3>Páginas</h3>
+            <ul class="rodape__lista">
+              <li><a href="index.html">Início</a></li>
+              <li><a href="catalogo.html">Catálogo</a></li>
+              <li><a href="sugestoes.html">Sugerir um jogo</a></li>
+            </ul>
+          </nav>
+
+          <div>
+            <h3>Sobre o projeto</h3>
+            <ul class="rodape__lista">
+              <li>Projeto 1 de SCOM de Erick Domingos.</li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="rodape__nota">
+          Projeto acadêmico sem fins comerciais. Marcas e títulos citados
+          pertencem aos respectivos detentores.
         </p>
       </div>
-
-      <div class="catalogo">
-        <!-- Painel de filtros: conteúdo complementar ao catálogo -->
-        <aside class="filtros" aria-labelledby="titulo-filtros">
-          <h2 id="titulo-filtros">Filtrar acervo</h2>
-
-          <form id="form-filtros">
-            <div class="campo">
-              <label class="campo__rotulo" for="busca">Buscar por título ou estúdio</label>
-              <input
-                type="search"
-                id="busca"
-                name="busca"
-                placeholder="ex.: Celeste"
-                aria-describedby="ajuda-busca"
-              />
-              <p class="campo__ajuda" id="ajuda-busca">
-                A lista é atualizada enquanto você digita.
-              </p>
-            </div>
-
-            <div class="campo">
-              <label class="campo__rotulo" for="genero">Gênero</label>
-              <select id="genero" name="genero">
-                <option value="todos">Todos os gêneros</option>
-                <option value="Aventura">Aventura</option>
-                <option value="Ação">Ação</option>
-                <option value="Estratégia">Estratégia</option>
-                <option value="Plataforma">Plataforma</option>
-                <option value="Puzzle">Puzzle</option>
-                <option value="RPG">RPG</option>
-                <option value="Roguelike">Roguelike</option>
-                <option value="Simulação">Simulação</option>
-                <option value="Sobrevivência">Sobrevivência</option>
-                <option value="Outro">Outro</option>
-              </select>
-            </div>
-
-            <fieldset>
-              <legend>Plataforma</legend>
-              <div class="opcoes">
-                <span class="opcao">
-                  <input type="checkbox" id="plat-pc" name="plataforma" value="pc" />
-                  <label for="plat-pc">PC</label>
-                </span>
-                <span class="opcao">
-                  <input
-                    type="checkbox"
-                    id="plat-playstation"
-                    name="plataforma"
-                    value="playstation"
-                  />
-                  <label for="plat-playstation">PlayStation</label>
-                </span>
-                <span class="opcao">
-                  <input type="checkbox" id="plat-xbox" name="plataforma" value="xbox" />
-                  <label for="plat-xbox">Xbox</label>
-                </span>
-                <span class="opcao">
-                  <input type="checkbox" id="plat-switch" name="plataforma" value="switch" />
-                  <label for="plat-switch">Switch</label>
-                </span>
-              </div>
-            </fieldset>
-            <fieldset>
-              <legend>Duração média</legend>
-              <div class="opcoes opcoes--coluna">
-                <span class="opcao">
-                  <input type="radio" id="dur-todas" name="duracao" value="todas" checked />
-                  <label for="dur-todas">Qualquer duração</label>
-                </span>
-                <span class="opcao">
-                  <input type="radio" id="dur-curta" name="duracao" value="curta" />
-                  <label for="dur-curta">Menos de 10 horas</label>
-                </span>
-                <span class="opcao">
-                  <input type="radio" id="dur-media" name="duracao" value="media" />
-                  <label for="dur-media">De 10 a 30 horas</label>
-                </span>
-                <span class="opcao">
-                  <input type="radio" id="dur-longa" name="duracao" value="longa" />
-                  <label for="dur-longa">Mais de 30 horas</label>
-                </span>
-              </div>
-            </fieldset>
-
-            <div class="campo">
-              <label class="campo__rotulo" for="ordem">Ordenar por</label>
-              <select id="ordem" name="ordem">
-                <option value="titulo">Título (A–Z)</option>
-                <option value="ano">Lançamento (mais recente)</option>
-                <option value="nota">Nota (maior primeiro)</option>
-                <option value="duracao">Duração (mais curto primeiro)</option>
-              </select>
-            </div>
-
-            <div class="filtros__acoes">
-              <button class="botao botao--secundario" type="reset" id="limpar">
-                Limpar filtros
-              </button>
-            </div>
-          </form>
-        </aside>
-
-        <section aria-labelledby="titulo-resultados">
-          <h2 id="titulo-resultados" class="apenas-leitor">Resultados</h2>
-
-          <details class="adicionar-jogo" id="bloco-adicionar">
-            <summary class="adicionar-jogo__abrir">
-              + Adicionar um jogo ao meu acervo
-            </summary>
-            <div class="adicionar-jogo__corpo">
-              <p class="campo__ajuda">
-                Fica salvo só neste navegador — o formulário não envia nada
-                para nenhum servidor. Se você limpar os dados do site ou
-                trocar de navegador, a lista some.
-              </p>
-
-              <div class="aviso" id="retorno-meu-jogo" role="status" hidden>
-                <p id="retorno-meu-jogo-texto"></p>
-              </div>
-
-              <form id="form-meu-jogo" novalidate>
-                <div class="campo">
-                  <label class="campo__rotulo" for="mj-titulo">Título do jogo</label>
-                  <input type="text" id="mj-titulo" name="titulo" required />
-                </div>
-
-                <div class="campo">
-                  <label class="campo__rotulo" for="mj-genero">Gênero</label>
-                  <select id="mj-genero" name="genero">
-                <option value="Aventura">Aventura</option>
-                <option value="Ação">Ação</option>
-                <option value="Estratégia">Estratégia</option>
-                <option value="Plataforma">Plataforma</option>
-                <option value="Puzzle">Puzzle</option>
-                <option value="RPG">RPG</option>
-                <option value="Roguelike">Roguelike</option>
-                <option value="Simulação">Simulação</option>
-                <option value="Sobrevivência">Sobrevivência</option>
-                    <option value="Outro">Outro</option>
-                  </select>
-                </div>
-
-                <fieldset>
-                  <legend>Plataformas</legend>
-                  <div class="opcoes">
-                    <span class="opcao">
-                      <input type="checkbox" id="mj-plat-pc" name="mj-plataforma" value="pc" />
-                      <label for="mj-plat-pc">PC</label>
-                    </span>
-                    <span class="opcao">
-                      <input
-                        type="checkbox"
-                        id="mj-plat-playstation"
-                        name="mj-plataforma"
-                        value="playstation"
-                      />
-                      <label for="mj-plat-playstation">PlayStation</label>
-                    </span>
-                    <span class="opcao">
-                      <input type="checkbox" id="mj-plat-xbox" name="mj-plataforma" value="xbox" />
-                      <label for="mj-plat-xbox">Xbox</label>
-                    </span>
-                    <span class="opcao">
-                      <input
-                        type="checkbox"
-                        id="mj-plat-switch"
-                        name="mj-plataforma"
-                        value="switch"
-                      />
-                      <label for="mj-plat-switch">Switch</label>
-                    </span>
-                  </div>
-                </fieldset>
-
-                <div class="campo">
-                  <label class="campo__rotulo" for="mj-duracao">Duração média (horas)</label>
-                  <input
-                    type="number"
-                    id="mj-duracao"
-                    name="duracao"
-                    min="0"
-                    max="500"
-                    step="1"
-                    aria-describedby="mj-ajuda-duracao"
-                  />
-                  <p class="campo__ajuda" id="mj-ajuda-duracao">
-                    Deixe em branco se não souber; conta como 0h nos filtros.
-                  </p>
-                </div>
-
-                <div class="campo">
-                  <label class="campo__rotulo" for="mj-metacritic">Nota no Metacritic</label>
-                  <input
-                    type="number"
-                    id="mj-metacritic"
-                    name="metacritic"
-                    min="0"
-                    max="100"
-                    step="1"
-                    aria-describedby="mj-ajuda-metacritic"
-                  />
-                  <p class="campo__ajuda" id="mj-ajuda-metacritic">
-                    De 0 a 100. Deixe em branco se não souber.
-                  </p>
-                </div>
-
-                <div class="campo">
-                  <label class="campo__rotulo" for="mj-comunidade">
-                    Nota da comunidade (Steam, Reddit etc.)
-                  </label>
-                  <input
-                    type="number"
-                    id="mj-comunidade"
-                    name="comunidade"
-                    min="0"
-                    max="10"
-                    step="0.1"
-                    aria-describedby="mj-ajuda-comunidade"
-                  />
-                  <p class="campo__ajuda" id="mj-ajuda-comunidade">
-                    De 0 a 10. Use a nota de usuários da fonte que preferir.
-                  </p>
-                </div>
-
-                <div class="campo">
-                  <label class="campo__rotulo" for="mj-resenha">Sua resenha (opcional)</label>
-                  <textarea
-                    id="mj-resenha"
-                    name="resenha"
-                    aria-describedby="mj-ajuda-resenha"
-                  ></textarea>
-                  <p class="campo__ajuda" id="mj-ajuda-resenha">
-                    Um resumo curto do que você achou do jogo.
-                  </p>
-                </div>
+    </footer>
+  </body>
+</html>
