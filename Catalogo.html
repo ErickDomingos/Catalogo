@@ -6,7 +6,7 @@
     <title>Catálogo completo — GameShelf</title>
     <meta
       name="description"
-      content="Os 36 jogos do acervo do GameShelf com filtros por gênero e plataforma, ficha técnica, tempo estimado de campanha e nota."
+      content="Os 128 jogos do acervo do GameShelf com filtros por gênero e plataforma, ficha técnica, tempo estimado de campanha e nota."
     />
     <link rel="icon" href="img/logo.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="css/estilo.css" />
@@ -36,15 +36,15 @@
       <div class="secao__cabecalho pagina__topo">
         <p class="sobretitulo">SUA PRÓXIMA JORNADA</p>
         <h1>Grandes jogos.<br /><span class="texto-destaque">A sua seleção.</span></h1>
-        <p>De Los Santos às Terras Intermédias. Explore 36 jogos conhecidos e deixe no catálogo apenas o que combina com você.</p>
-        <p class="campo__ajuda">Notas da crítica com fonte e plataforma. Tempo de campanha em faixas estimadas.</p>
+        <p>Dos exclusivos Nintendo aos clássicos de PS2, PS3 e Xbox 360. Explore 128 jogos e organize cada próxima aventura.</p>
+        <p class="campo__ajuda">Notas da crítica com fonte e plataforma; campos sem confirmação são sinalizados. Tempo de campanha em faixas estimadas.</p>
       </div>
 
       <div class="catalogo">
         <!-- Painel de filtros: conteúdo complementar ao catálogo -->
         <aside class="filtros" aria-labelledby="titulo-filtros">
           <h2 id="titulo-filtros">Filtrar acervo</h2>
-          <noscript><p>Ative o JavaScript para usar filtros e o acervo pessoal. Os 36 jogos e suas fichas continuam disponíveis abaixo.</p></noscript>
+          <noscript><p>Ative o JavaScript para usar filtros e o acervo pessoal. Os 128 jogos e suas fichas continuam disponíveis abaixo.</p></noscript>
 
           <form id="form-filtros" hidden>
             <div class="campo">
@@ -77,6 +77,7 @@
                 <option value="Corrida">Corrida</option>
 <option value="Luta">Luta</option>
 <option value="Tiro">Tiro</option>
+<option value="Esporte">Esporte</option>
 <option value="Outro">Outro</option>
               </select>
             </div>
@@ -108,6 +109,8 @@
               </div>
             </fieldset>
 
+<div class="campo"><label class="campo__rotulo" for="console">Console da edição</label><select id="console" name="console"><option value="todos">Todos os consoles</option><option value="switch">Nintendo Switch</option><option value="switch2">Nintendo Switch 2</option><option value="ps2">PlayStation 2</option><option value="ps3">PlayStation 3</option><option value="xbox360">Xbox 360</option><option value="pc">PC</option><option value="ps4">PlayStation 4</option><option value="ps5">PlayStation 5</option><option value="xbox">Xbox original</option><option value="xboxone">Xbox One</option><option value="xboxseries">Xbox Series X|S</option><option value="wii">Wii</option><option value="gamecube">GameCube</option><option value="arcade">Arcade</option></select><p class="campo__ajuda">Filtra as plataformas da ficha. Relançamentos e retrocompatibilidade aparecem nos detalhes.</p></div>
+<div class="campo"><label class="campo__rotulo" for="minha-lista">Minha lista</label><select id="minha-lista" name="minha-lista"><option value="todas">Todo o catálogo</option><option value="quero">Quero jogar</option><option value="jogando">Jogando</option><option value="joguei">Já joguei</option><option value="zerado">Zerado</option><option value="nenhuma">Sem lista</option></select></div>
             <fieldset>
               <legend>Tempo de campanha</legend>
               <div class="opcoes opcoes--coluna">
@@ -151,6 +154,7 @@
         <section aria-labelledby="titulo-resultados">
           <h2 id="titulo-resultados" class="apenas-leitor">Resultados</h2>
 
+<section class="minhas-listas" id="minhas-listas" aria-labelledby="titulo-listas" hidden><p class="sobretitulo">NO SEU RITMO</p><h2 id="titulo-listas">Sua história com os jogos</h2><p>Escolha um estado em cada cartão. “Já joguei” registra uma experiência; “Zerado”, uma conclusão.</p><div class="listas-atalhos" role="group" aria-label="Filtrar pela minha lista"><button class="lista-atalho" type="button" data-lista="todas" aria-pressed="true"><strong>0</strong><span>Todo o catálogo</span></button><button class="lista-atalho" type="button" data-lista="quero" aria-pressed="false"><strong>0</strong><span>Quero jogar</span></button><button class="lista-atalho" type="button" data-lista="jogando" aria-pressed="false"><strong>0</strong><span>Jogando</span></button><button class="lista-atalho" type="button" data-lista="joguei" aria-pressed="false"><strong>0</strong><span>Já joguei</span></button><button class="lista-atalho" type="button" data-lista="zerado" aria-pressed="false"><strong>0</strong><span>Zerado</span></button></div><p class="campo__ajuda">As contagens incluem os jogos mantidos no catálogo, mesmo quando outros filtros os escondem. Cada jogo fica em uma lista por vez. Salvo neste navegador, sem conta ou sincronização.</p></section><div class="aviso" id="estado-listas" role="status" tabindex="-1" hidden></div>
           <details class="adicionar-jogo" id="adicionar" hidden>
             <summary class="adicionar-jogo__abrir">
               + Adicionar um jogo ao meu acervo
@@ -163,3 +167,148 @@
               <div class="aviso" id="retorno-meu-jogo" role="status" hidden>
                 <p id="retorno-meu-jogo-texto"></p>
               </div>
+
+              <form id="form-meu-jogo" novalidate>
+                <div class="campo">
+                  <label class="campo__rotulo" for="mj-titulo">Título do jogo</label>
+                  <input type="text" id="mj-titulo" maxlength="80" name="titulo" required />
+                </div>
+
+                <div class="campo"><label class="campo__rotulo" for="mj-estudio">Desenvolvedora (opcional)</label><input type="text" id="mj-estudio" name="estudio" maxlength="100" /></div>
+                <div class="campo"><label class="campo__rotulo" for="mj-console">Console da edição (opcional)</label><select id="mj-console" name="console"><option value="">Não informado</option><option value="switch">Nintendo Switch</option><option value="switch2">Nintendo Switch 2</option><option value="ps2">PlayStation 2</option><option value="ps3">PlayStation 3</option><option value="xbox360">Xbox 360</option><option value="pc">PC</option><option value="ps4">PlayStation 4</option><option value="ps5">PlayStation 5</option><option value="xbox">Xbox original</option><option value="xboxone">Xbox One</option><option value="xboxseries">Xbox Series X|S</option><option value="wii">Wii</option><option value="gamecube">GameCube</option><option value="arcade">Arcade</option></select><p class="campo__ajuda">O console escolhido também conta como plataforma do jogo.</p></div>
+<div class="campo"><label class="campo__rotulo" for="mj-ano">Ano de lançamento (opcional)</label><input type="number" id="mj-ano" name="ano" min="1950" max="2100" step="1" /></div>
+                <div class="campo">
+                  <label class="campo__rotulo" for="mj-genero">Gênero</label>
+                  <select id="mj-genero" name="genero">
+                <option value="Aventura">Aventura</option>
+                <option value="Ação">Ação</option>
+                <option value="Estratégia">Estratégia</option>
+                <option value="Plataforma">Plataforma</option>
+                <option value="Puzzle">Puzzle</option>
+                <option value="RPG">RPG</option>
+                <option value="Roguelike">Roguelike</option>
+                <option value="Simulação">Simulação</option>
+                <option value="Sobrevivência">Sobrevivência</option>
+                    <option value="Corrida">Corrida</option>
+<option value="Luta">Luta</option>
+<option value="Tiro">Tiro</option>
+<option value="Esporte">Esporte</option>
+<option value="Outro">Outro</option>
+                  </select>
+                </div>
+
+                <fieldset>
+                  <legend>Plataformas</legend>
+                  <div class="opcoes">
+                    <span class="opcao">
+                      <input type="checkbox" id="mj-plat-pc" name="mj-plataforma" value="pc" />
+                      <label for="mj-plat-pc">PC</label>
+                    </span>
+                    <span class="opcao">
+                      <input
+                        type="checkbox"
+                        id="mj-plat-playstation"
+                        name="mj-plataforma"
+                        value="playstation"
+                      />
+                      <label for="mj-plat-playstation">PlayStation</label>
+                    </span>
+                    <span class="opcao">
+                      <input type="checkbox" id="mj-plat-xbox" name="mj-plataforma" value="xbox" />
+                      <label for="mj-plat-xbox">Xbox</label>
+                    </span>
+                    <span class="opcao">
+                      <input
+                        type="checkbox"
+                        id="mj-plat-switch"
+                        name="mj-plataforma"
+                        value="switch"
+                      />
+                      <label for="mj-plat-switch">Switch</label>
+                    </span>
+                  </div>
+                </fieldset>
+
+                <div class="campo">
+                  <label class="campo__rotulo" for="mj-duracao">Tempo de campanha (horas)</label>
+                  <input
+                    type="number"
+                    id="mj-duracao"
+                    name="duracao"
+                    min="0"
+                    max="500"
+                    step="1"
+                    aria-describedby="mj-ajuda-duracao"
+                  />
+                  <p class="campo__ajuda" id="mj-ajuda-duracao">
+                    Deixe em branco se não souber; fica fora dos filtros por faixa de duração.
+                  </p>
+                </div>
+
+                <div class="campo">
+                  <label class="campo__rotulo" for="mj-metacritic">Nota de referência (0 a 100)</label>
+                  <input
+                    type="number"
+                    id="mj-metacritic"
+                    name="metacritic"
+                    min="0"
+                    max="100"
+                    step="1"
+                    aria-describedby="mj-ajuda-metacritic"
+                  />
+                  <p class="campo__ajuda" id="mj-ajuda-metacritic">
+                    Número inteiro de 0 a 100. Valor informado por você, sem verificação externa.
+                  </p>
+                </div>
+
+                <div class="campo">
+                  <label class="campo__rotulo" for="mj-comunidade">
+                    Sua nota (0 a 10)
+                  </label>
+                  <input
+                    type="number"
+                    id="mj-comunidade"
+                    name="comunidade"
+                    min="0"
+                    max="10"
+                    step="0.1"
+                    aria-describedby="mj-ajuda-comunidade"
+                  />
+                  <p class="campo__ajuda" id="mj-ajuda-comunidade">
+                    De 0 a 10, com até uma casa decimal. Preenchimento opcional.
+                  </p>
+                </div>
+
+                <div class="campo">
+                  <label class="campo__rotulo" for="mj-resenha">Sua resenha (opcional)</label>
+                  <textarea
+                    id="mj-resenha" maxlength="600"
+                    name="resenha"
+                    aria-describedby="mj-ajuda-resenha"
+                  ></textarea>
+                  <p class="campo__ajuda" id="mj-ajuda-resenha">
+                    Um resumo curto do que você achou do jogo.
+                  </p>
+                </div>
+
+                <button class="botao" type="submit">Adicionar à lista</button>
+              </form>
+            </div>
+          </details>
+
+          <div class="acervo-acoes" id="acoes-acervo" hidden>
+            <button type="button" class="botao botao--secundario" id="restaurar-catalogo" disabled>Restaurar jogos iniciais (0)</button>
+            <button type="button" class="botao botao--secundario" id="desfazer-remocao" hidden>Desfazer última remoção</button>
+          </div>
+          <p class="campo__ajuda">Você pode remover qualquer jogo. As alterações ficam neste navegador. Remover esconde o jogo; sua marcação volta ao restaurá-lo.</p>
+          <div class="aviso" id="estado-acervo" role="status" hidden></div>
+
+          <p class="contador" id="contador" role="status">
+            Mostrando 128 de 128 jogos.
+          </p>
+
+          <p class="vazio" id="vazio" hidden>
+            Nenhum jogo nesta combinação. Marque títulos em “Na minha lista” ou limpe os filtros ou use “Restaurar jogos iniciais” para recuperar os títulos removidos.
+          </p>
+
+          <ul class="grade-jogos" id="lista-jogos">
