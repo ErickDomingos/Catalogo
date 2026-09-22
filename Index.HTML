@@ -11,7 +11,6 @@
     <link rel="icon" href="img/logo.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="css/estilo.css" />
   </head>
-
   <body>
     <a class="pular-link" href="#conteudo">Pular para o conteúdo</a>
 
@@ -21,20 +20,13 @@
           <img src="img/logo.svg" alt="" width="40" height="40" />
           <span class="marca__nome">GameShelf</span>
         </a>
-
         <nav aria-label="Navegação principal">
           <ul class="menu">
             <li>
-              <a class="menu__link" href="index.html" aria-current="page">
-                Início
-              </a>
+              <a class="menu__link" href="index.html" aria-current="page">Início</a>
             </li>
-            <li>
-              <a class="menu__link" href="catalogo.html">Catálogo</a>
-            </li>
-            <li>
-              <a class="menu__link" href="sugestoes.html">Sugerir um jogo</a>
-            </li>
+            <li><a class="menu__link" href="catalogo.html">Catálogo</a></li>
+            <li><a class="menu__link" href="sugestoes.html">Sugerir um jogo</a></li>
           </ul>
         </nav>
       </div>
@@ -42,55 +34,23 @@
 
     <main tabindex="-1" id="conteudo">
       <section class="envolucro destaque" aria-labelledby="titulo-principal">
-        <div class="destaque__texto">
-          <p class="sobretitulo">UM LUGAR PARA OS SEUS JOGOS</p>
-
-          <h1 id="titulo-principal">
-            A próxima grande<br />
-            <span class="texto-destaque">história é sua.</span>
-          </h1>
-
-          <p>
-            Reencontre os favoritos. Descubra sua próxima aventura. Compare
-            jogos, confira a crítica e monte uma seleção com a sua cara.
-          </p>
-
-          <div class="destaque__acoes">
-            <a class="botao" href="catalogo.html">
-              Explorar catálogo <span aria-hidden="true">↗</span>
-            </a>
-            <a class="botao botao--secundario" href="catalogo.html#adicionar">
-              Adicionar um jogo
-            </a>
-          </div>
-
-          <p class="destaque__rodape">
-            128 títulos · 13 gêneros · sua seleção, no seu ritmo
-          </p>
+        <div class="destaque__texto"><p class="sobretitulo">UM LUGAR PARA OS SEUS JOGOS</p>
+          <h1 id="titulo-principal">A próxima grande<br /><span class="texto-destaque">história é sua.</span></h1>
+          <p>Reencontre os favoritos. Descubra sua próxima aventura. Compare jogos, confira a crítica e monte uma seleção com a sua cara.</p>
+          <div class="destaque__acoes"><a class="botao" href="catalogo.html">Explorar catálogo <span aria-hidden="true">↗</span></a><a class="botao botao--secundario" href="catalogo.html#adicionar">Adicionar um jogo</a></div>
+          <p class="destaque__rodape">128 títulos · 13 gêneros · sua seleção, no seu ritmo</p>
         </div>
-
-        <figure class="destaque__figura">
-          <img
-            src="img/capas/red-dead-redemption-2.jpg"
-            alt="Arte promocional de Red Dead Redemption 2, com Arthur Morgan em destaque"
-            width="460"
-            height="215"
-            fetchpriority="high"
-          />
-          <figcaption>
-            <span class="sobretitulo">EM DESTAQUE</span>
-            <strong>Red Dead Redemption 2</strong>
-            <span>Rockstar Games · Aventura · 2018</span>
-            <a href="catalogo.html#base-red-dead-redemption-2">
-              Conhecer o jogo <span aria-hidden="true">↗</span>
-            </a>
-          </figcaption>
+        <figure class="destaque__figura"><img src="img/capas/red-dead-redemption-2.jpg" alt="Arte promocional de Red Dead Redemption 2, com Arthur Morgan em destaque" width="460" height="215" fetchpriority="high" />
+          <figcaption><span class="sobretitulo">EM DESTAQUE</span><strong>Red Dead Redemption 2</strong><span>Rockstar Games · Aventura · 2018</span><a href="catalogo.html#base-red-dead-redemption-2">Conhecer o jogo <span aria-hidden="true">↗</span></a></figcaption>
         </figure>
       </section>
-
-      <!-- PRÓXIMO BLOCO: cartões de jogos em destaque -->
-
-      <!-- BLOCO FINAL: recursos do catálogo e critérios dos dados -->
+      <section class="envolucro secao" aria-labelledby="titulo-destaques"><div class="secao__cabecalho secao__cabecalho--linha"><div><p class="sobretitulo">VALE COLOCAR NA LISTA</p><h2 id="titulo-destaques">Nomes que você conhece</h2><p>Seis portas de entrada para grandes aventuras. O catálogo também reúne Nintendo e clássicos de outras gerações.</p></div><a href="catalogo.html">Ver todos os jogos →</a></div>
+        <ul class="grade-jogos grade-destaques"><li data-destaque="base-gta-v"><article class="cartao"><img class="cartao__capa" src="img/capas/gta-v.jpg" alt="Arte promocional de Grand Theft Auto V" width="460" height="215" loading="lazy" decoding="async" /><div class="cartao__corpo"><p class="cartao__kicker">Ação <span>· 2013</span></p><h3 class="cartao__titulo">Grand Theft Auto V</h3><p class="cartao__resumo">Três protagonistas, grandes assaltos e liberdade para explorar Los Santos.</p><p class="cartao__meta">Rockstar North</p><a class="cartao__link" href="catalogo.html#base-gta-v">Explorar o jogo <span aria-hidden="true">↗</span></a></div></article></li><li data-destaque="base-god-of-war"><article class="cartao"><img class="cartao__capa" src="img/capas/god-of-war.jpg" alt="Arte promocional de God of War" width="460" height="215" loading="lazy" decoding="async" /><div class="cartao__corpo"><p class="cartao__kicker">Aventura <span>· 2018</span></p><h3 class="cartao__titulo">God of War</h3><p class="cartao__resumo">Kratos e Atreus atravessam os reinos nórdicos em uma jornada de pai e filho.</p><p class="cartao__meta">Santa Monica Studio</p><a class="cartao__link" href="catalogo.html#base-god-of-war">Explorar o jogo <span aria-hidden="true">↗</span></a></div></article></li><li data-destaque="base-elden-ring"><article class="cartao"><img class="cartao__capa" src="img/capas/elden-ring.jpg" alt="Arte promocional de Elden Ring" width="460" height="215" loading="lazy" decoding="async" /><div class="cartao__corpo"><p class="cartao__kicker">RPG <span>· 2022</span></p><h3 class="cartao__titulo">Elden Ring</h3><p class="cartao__resumo">Crie seu personagem e descubra caminhos, fortalezas e chefes nas Terras Intermédias.</p><p class="cartao__meta">FromSoftware</p><a class="cartao__link" href="catalogo.html#base-elden-ring">Explorar o jogo <span aria-hidden="true">↗</span></a></div></article></li><li data-destaque="base-hogwarts-legacy"><article class="cartao"><img class="cartao__capa" src="img/capas/hogwarts-legacy.jpg" alt="Arte promocional de Hogwarts Legacy" width="460" height="215" loading="lazy" decoding="async" /><div class="cartao__corpo"><p class="cartao__kicker">RPG <span>· 2023</span></p><h3 class="cartao__titulo">Hogwarts Legacy</h3><p class="cartao__resumo">Estude magia, explore Hogwarts e investigue um mistério no mundo bruxo do século XIX.</p><p class="cartao__meta">Avalanche Software</p><a class="cartao__link" href="catalogo.html#base-hogwarts-legacy">Explorar o jogo <span aria-hidden="true">↗</span></a></div></article></li><li data-destaque="base-forza-horizon-5"><article class="cartao"><img class="cartao__capa" src="img/capas/forza-horizon-5.jpg" alt="Arte promocional de Forza Horizon 5" width="460" height="215" loading="lazy" decoding="async" /><div class="cartao__corpo"><p class="cartao__kicker">Corrida <span>· 2021</span></p><h3 class="cartao__titulo">Forza Horizon 5</h3><p class="cartao__resumo">Explore o México em um festival aberto de carros, desafios e corridas.</p><p class="cartao__meta">Playground Games</p><a class="cartao__link" href="catalogo.html#base-forza-horizon-5">Explorar o jogo <span aria-hidden="true">↗</span></a></div></article></li><li data-destaque="base-baldurs-gate-3"><article class="cartao"><img class="cartao__capa" src="img/capas/baldurs-gate-3.jpg" alt="Arte promocional de Baldur’s Gate 3" width="460" height="215" loading="lazy" decoding="async" /><div class="cartao__corpo"><p class="cartao__kicker">RPG <span>· 2023</span></p><h3 class="cartao__titulo">Baldur’s Gate 3</h3><p class="cartao__resumo">Monte um grupo, resolva conflitos com escolhas e lute por turnos em Forgotten Realms.</p><p class="cartao__meta">Larian Studios</p><a class="cartao__link" href="catalogo.html#base-baldurs-gate-3">Explorar o jogo <span aria-hidden="true">↗</span></a></div></article></li></ul>
+      </section>
+      <section class="envolucro secao" aria-labelledby="titulo-acervo"><div class="secao__cabecalho"><p class="sobretitulo">MAIS DO QUE UMA CAPA</p><h2 id="titulo-acervo">Escolha com mais contexto</h2></div>
+        <div class="recursos"><article><span class="recurso-numero">01</span><h3>Conheça o jogo</h3><p>Desenvolvedora, publicadora, edição, plataformas e modo de jogo em uma ficha organizada.</p></article><article><span class="recurso-numero">02</span><h3>Confira a crítica</h3><p>Metascore de 0 a 100, com a plataforma avaliada e o link da fonte em cada título.</p></article><article><span class="recurso-numero">03</span><h3>Deixe do seu jeito</h3><p>Organize o que quer jogar, está jogando, já jogou ou zerou. Remova e restaure títulos quando quiser.</p></article></div>
+        <details class="sobre-dados"><summary>Como ler as notas e as durações</summary><p>Metascore é a nota agregada da crítica no Metacritic. As notas foram conferidas no Steam ou em fontes secundárias indicadas nas fichas, em 20–21/09/2026. Oito títulos estão com Metascore não confirmado. As notas variam por plataforma e edição; não são atualizadas automaticamente.</p><p>O percentual do Steam representa avaliações positivas de jogadores em inglês. Não é uma nota do Metacritic. Os tempos são faixas editoriais aproximadas de campanha, sem DLCs ou conclusão de 100%; não são médias do HowLongToBeat. Os filtros de duração usam o ponto médio da faixa.</p><p>As plataformas listadas são as principais versões selecionadas de cada jogo, sem incluir todas as opções de nuvem ou retrocompatibilidade. <a href="docs/FONTES.md">Consultar fontes e créditos</a>.</p></details>
+      </section>
     </main>
 
     <footer class="rodape">
@@ -99,11 +59,9 @@
           <div>
             <h2>GameShelf</h2>
             <p>
-              Seu próximo jogo começa aqui. Fichas completas, notas com fonte
-              e uma seleção que você pode personalizar.
+              Seu próximo jogo começa aqui. Fichas completas, notas com fonte e uma seleção que você pode personalizar.
             </p>
           </div>
-
           <nav aria-label="Navegação do rodapé">
             <h3>Páginas</h3>
             <ul class="rodape__lista">
@@ -112,15 +70,13 @@
               <li><a href="sugestoes.html">Sugerir um jogo</a></li>
             </ul>
           </nav>
-
           <div>
             <h3>Sobre o projeto</h3>
             <ul class="rodape__lista">
-              <li>Projeto 1 de SCOM de Erick Domingos.</li>
+              <li>Projeto acadêmico de Erick Domingos.</li>
             </ul>
           </div>
         </div>
-
         <p class="rodape__nota">
           Projeto acadêmico sem fins comerciais. Marcas e títulos citados
           pertencem aos respectivos detentores.
