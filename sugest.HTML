@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sugerir um jogo — GameShelf</title>
+    <meta
+      name="description"
+      content="Experimente o formulário de sugestão do GameShelf: validação local de título, e-mail e justificativa, sem envio de dados."
+    />
+    <link rel="icon" href="img/logo.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="css/estilo.css" />
+  </head>
+  <body>
+    <a class="pular-link" href="#conteudo">Pular para o conteúdo</a>
+
+    <header class="cabecalho">
+      <div class="envolucro cabecalho__interno">
+        <a class="marca" href="index.html">
+          <img src="img/logo.svg" alt="" width="40" height="40" />
+          <span class="marca__nome">GameShelf</span>
+        </a>
+        <nav aria-label="Navegação principal">
+          <ul class="menu">
+            <li><a class="menu__link" href="index.html">Início</a></li>
+            <li><a class="menu__link" href="catalogo.html">Catálogo</a></li>
+            <li>
+              <a class="menu__link" href="sugestoes.html" aria-current="page">Sugerir um jogo</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main tabindex="-1" id="conteudo" class="envolucro">
+      <div class="secao__cabecalho pagina__topo">
+        <h1>Sugerir um jogo</h1>
+        <p>
+          Experimente sugerir um título. Este formulário é uma demonstração:
+          os dados são validados aqui, sem envio, armazenamento ou resposta por e-mail.
+        </p>
+        <p>
+          Quer só guardar um jogo para você, sem revisão de ninguém? Use
+          <a href="catalogo.html#adicionar">Adicionar um jogo ao meu acervo</a>,
+          na página do catálogo — o site tenta salvá-lo no seu navegador e avisa caso o armazenamento esteja bloqueado.
+        </p>
+      </div>
+
+      <div class="catalogo catalogo--invertido">
+        <section aria-labelledby="titulo-formulario">
+          <h2 id="titulo-formulario" class="apenas-leitor">Formulário de sugestão</h2>
+
+          <!-- Mensagem de retorno anunciada por leitores de tela -->
+          <div class="aviso" id="retorno" role="status" hidden>
+            <p id="retorno-texto"></p>
+          </div>
+
+          <form id="form-sugestao" novalidate hidden>
+            <div class="campo">
+              <label class="campo__rotulo" for="jogo">Título do jogo</label>
+              <input
+                type="text"
+                id="jogo" maxlength="80"
+                name="jogo"
+                required
+                aria-describedby="ajuda-jogo"
+              />
+              <p class="campo__ajuda" id="ajuda-jogo">Campo obrigatório.</p>
+            </div>
+
+            <div class="campo">
+              <label class="campo__rotulo" for="email">Seu e-mail</label>
+              <input
+                type="email"
+                id="email" maxlength="254" autocomplete="email"
+                name="email"
+                required
+                aria-describedby="ajuda-email"
+              />
+              <p class="campo__ajuda" id="ajuda-email">
+                Use um endereço de exemplo, como teste@example.com. Nenhum e-mail será enviado.
+              </p>
+            </div>
+
+            <div class="campo">
+              <label class="campo__rotulo" for="genero-sugerido">Gênero</label>
+              <select id="genero-sugerido" name="genero-sugerido">
+                <option value="Aventura">Aventura</option>
+                <option value="Ação">Ação</option>
+                <option value="Estratégia">Estratégia</option>
+                <option value="Plataforma">Plataforma</option>
+                <option value="Puzzle">Puzzle</option>
+                <option value="RPG">RPG</option>
+                <option value="Roguelike">Roguelike</option>
+                <option value="Simulação">Simulação</option>
+                <option value="Sobrevivência">Sobrevivência</option>
+                <option value="Outro">Outro</option>
+              </select>
+            </div>
+
+            <fieldset>
+              <legend>Em quais plataformas você jogou?</legend>
+              <div class="opcoes">
+                <span class="opcao">
+                  <input type="checkbox" id="sug-pc" name="sug-plataforma" value="PC" />
+                  <label for="sug-pc">PC</label>
+                </span>
+                <span class="opcao">
+                  <input
+                    type="checkbox"
+                    id="sug-playstation"
+                    name="sug-plataforma"
+                    value="PlayStation"
+                  />
+                  <label for="sug-playstation">PlayStation</label>
+                </span>
+                <span class="opcao">
+                  <input type="checkbox" id="sug-xbox" name="sug-plataforma" value="Xbox" />
+                  <label for="sug-xbox">Xbox</label>
+                </span>
+                <span class="opcao">
+                  <input
+                    type="checkbox"
+                    id="sug-switch"
+                    name="sug-plataforma"
+                    value="Switch"
+                  />
+                  <label for="sug-switch">Switch</label>
+                </span>
+              </div>
+            </fieldset>
+
+            <div class="campo">
+              <label class="campo__rotulo" for="motivo">Por que ele deveria entrar?</label>
+              <textarea
+                id="motivo" maxlength="600"
+                name="motivo"
+                required
+                aria-describedby="ajuda-motivo"
+              ></textarea>
+              <p class="campo__ajuda" id="ajuda-motivo">
+                Dois ou três argumentos bastam. Campo obrigatório.
+              </p>
+            </div>
+
+            <button class="botao" type="submit">Simular envio</button>
+          </form>
+
+          <noscript>
+            <p class="aviso">
+              Ative o JavaScript para testar o formulário. As demais páginas e fichas continuam disponíveis.
+            </p>
+          </noscript>
+        </section>
+
+        <aside class="texto-corrido" aria-labelledby="titulo-criterios">
+          <h2 id="titulo-criterios">Como testar a sugestão</h2>
+          <ul>
+            <li>Informe um título e um e-mail de exemplo.</li>
+            <li>Escolha o gênero e, se quiser, as plataformas.</li>
+            <li>Escreva uma justificativa curta.</li>
+            <li>Acione “Simular envio” e confira a confirmação.</li>
+          </ul>
+          <p>
+            Como este é um projeto acadêmico, o formulário não envia dados para
+            nenhum servidor: o retorno é gerado no próprio navegador.
+          </p>
+        </aside>
+      </div>
+    </main>
+
+    <footer class="rodape">
+      <div class="envolucro">
+        <div class="rodape__grade">
+          <div>
+            <h2>GameShelf</h2>
+            <p>
+              Seu próximo jogo começa aqui. Fichas completas, notas com fonte e uma seleção que você pode personalizar.
+            </p>
+          </div>
+          <nav aria-label="Navegação do rodapé">
+            <h3>Páginas</h3>
+            <ul class="rodape__lista">
+              <li><a href="index.html">Início</a></li>
+              <li><a href="catalogo.html">Catálogo</a></li>
+              <li><a href="sugestoes.html">Sugerir um jogo</a></li>
+            </ul>
+          </nav>
+          <div>
+            <h3>Sobre o projeto</h3>
+            <ul class="rodape__lista">
+              <li>Projeto acadêmico de Erick Domingos.</li>
+            </ul>
+          </div>
+        </div>
+        <p class="rodape__nota">
+          Projeto acadêmico sem fins comerciais. Marcas e títulos citados
+          pertencem aos respectivos detentores.
+        </p>
+      </div>
+    </footer>
+
+    <script src="js/validacao.js" defer></script>
+    <script src="js/formulario.js" defer></script>
+  </body>
+</html>
