@@ -1,3 +1,4 @@
+
 /* =============================================================
    GameShelf — folha de estilo única
    Organização: 1 tokens · 2 base · 3 layout · 4 cabeçalho ·
@@ -473,15 +474,12 @@ input::placeholder { color: var(--cor-texto-suave); opacity: 1; }
 }
 
 .adicionar-jogo__abrir {
+  display: block;
   cursor: pointer;
   padding: var(--esp-3);
   font-family: var(--fonte-titulo);
   color: var(--cor-ouro);
   list-style: none;
-}
-
-.adicionar-jogo__abrir::-webkit-details-marker {
-  display: none;
 }
 
 .adicionar-jogo[open] .adicionar-jogo__abrir {
@@ -782,7 +780,7 @@ legend {
   .filtros {
     position: sticky;
     top: var(--esp-3);
-    max-height: calc(100vh - 2 * var(--esp-3));
+    max-height: calc(100vh - 2rem);
     overflow-y: auto;
   }
 
