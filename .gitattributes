@@ -1,2 +1,9 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+*.zip
+testes/fixtures.json
+testes/estrutura.json
+testes/regressoes.json
+testes/capas.json
