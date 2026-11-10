@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Entrar — GameShelf</title>
+    <link rel="icon" href="img/logo.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="css/estilo.css" />
+    <link rel="stylesheet" href="css/conta.css" />
+  </head>
+  <body>
+    <a class="pular-link" href="#conteudo">Pular para o conteúdo</a>
+    <header class="cabecalho">
+      <div class="envolucro cabecalho__interno">
+        <a class="marca" href="index.html">
+          <img src="img/logo.svg" alt="" width="40" height="40" />
+          <span class="marca__nome">GameShelf</span>
+        </a>
+        <nav aria-label="Navegação principal">
+          <ul class="menu">
+            <li><a class="menu__link" href="index.html">Início</a></li>
+            <li><a class="menu__link" href="catalogo.html">Catálogo</a></li>
+            <li><a class="menu__link" href="sugestoes.html">Sugerir um jogo</a></li>
+            <li><a class="menu__link" href="conta.html" aria-current="page">Minha conta</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main tabindex="-1" id="conteudo" class="envolucro">
+      <h1>Entrar no GameShelf</h1>
+      <p>Com uma conta você cadastra seus próprios jogos e organiza suas listas. O catálogo oficial continua aberto para visitantes.</p>
+      <div id="mensagem" class="mensagem" role="alert" hidden></div>
+      <div class="duas-colunas">
+        <section class="painel" aria-labelledby="t-login">
+          <h2 id="t-login">Já tenho conta</h2>
+          <form id="form-login" novalidate>
+            <div class="campo"><label class="campo__rotulo" for="login-email">E-mail</label><input type="email" id="login-email" name="email" autocomplete="username" maxlength="120" required /><p class="erro-campo" id="login-email-erro" hidden></p></div>
+            <div class="campo"><label class="campo__rotulo" for="login-senha">Senha</label><input type="password" id="login-senha" name="senha" autocomplete="current-password" maxlength="72" required /><p class="erro-campo" id="login-senha-erro" hidden></p></div>
+            <button class="botao" type="submit">Entrar</button>
+          </form>
+        </section>
+        <section class="painel" aria-labelledby="t-registro">
+          <h2 id="t-registro">Criar conta</h2>
+          <form id="form-registro" novalidate>
+            <div class="campo"><label class="campo__rotulo" for="reg-nome">Nome</label><input type="text" id="reg-nome" name="nome" autocomplete="name" maxlength="80" required /><p class="erro-campo" id="reg-nome-erro" hidden></p></div>
+            <div class="campo"><label class="campo__rotulo" for="reg-email">E-mail</label><input type="email" id="reg-email" name="email" autocomplete="email" maxlength="120" required /><p class="erro-campo" id="reg-email-erro" hidden></p></div>
+            <div class="campo"><label class="campo__rotulo" for="reg-senha">Senha</label><input type="password" id="reg-senha" name="senha" autocomplete="new-password" maxlength="72" required /><p class="campo__ajuda">De 8 a 72 caracteres, com letra e número.</p><p class="erro-campo" id="reg-senha-erro" hidden></p></div>
+            <button class="botao" type="submit">Criar conta</button>
+          </form>
+        </section>
+      </div>
+    </main>
+    <footer class="rodape">
+      <div class="envolucro">
+        <p class="rodape__nota">Projeto acadêmico de Erick Domingos (SCOM, Trabalho Individual II). Marcas e títulos citados pertencem aos respectivos detentores.</p>
+      </div>
+    </footer>
+    <script src="js/api.js" defer></script>
+    <script src="js/entrar.js" defer></script>
+  </body>
+</html>
