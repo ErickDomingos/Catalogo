@@ -1,0 +1,19 @@
+/* Complementos das telas com backend (entrar, conta, admin). Reaproveita os tokens de estilo.css. */
+.conta-barra { display: flex; flex-wrap: wrap; gap: var(--esp-3); align-items: center; justify-content: space-between;
+  padding: var(--esp-3) var(--esp-4); background: var(--cor-superficie); border: 1px solid var(--cor-linha); border-radius: var(--raio-grande); }
+.conta-barra p { margin: 0; }
+.conta-acoes { display: flex; flex-wrap: wrap; gap: var(--esp-2); }
+.duas-colunas { display: grid; gap: var(--esp-4); grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); align-items: start; }
+.painel { padding: var(--esp-4); background: var(--cor-superficie); border: 1px solid var(--cor-linha); border-radius: var(--raio-grande); }
+.painel h2 { margin-top: 0; }
+.painel form { display: grid; gap: var(--esp-3); }
+.mensagem { padding: var(--esp-2) var(--esp-3); border-left: 4px solid var(--cor-ouro); background: var(--cor-superficie-alta); border-radius: var(--raio); margin: var(--esp-3) 0; }
+.mensagem--erro { border-left-color: var(--cor-magenta); }
+.filtros-linha { display: flex; flex-wrap: wrap; gap: var(--esp-3); align-items: end; }
+.filtros-linha .campo { flex: 1 1 12rem; }
+.paginacao { display: flex; gap: var(--esp-3); align-items: center; justify-content: center; margin: var(--esp-4) 0; }
+.contagens { display: flex; flex-wrap: wrap; gap: var(--esp-2); list-style: none; padding: 0; margin: var(--esp-3) 0; }
+.tabela-rolavel { overflow-x: auto; }
+.tabela-usuarios { width: 100%; border-collapse: collapse; }
+.tabela-usuarios th, .tabela-usuarios td { text-align: left; padding: var(--esp-2) var(--esp-3); border-bottom: 1px solid var(--cor-linha); }
+.opcoes-linha { display: flex; flex-wrap: wrap; gap: var(--esp-3); }
