@@ -16,6 +16,7 @@ require __DIR__ . '/../../src/autoload.php';
 use GameShelf\Core\Env;
 
 Env::carregar(__DIR__ . '/../../.env');
+date_default_timezone_set(Env::get('APP_TZ', 'America/Sao_Paulo') ?? 'America/Sao_Paulo');
 $base = rtrim($argv[1] ?? 'http://localhost:8000', '/');
 
 final class Cliente
@@ -31,16 +32,21 @@ final class Cliente
     /** @return array{status:int,cabecalhos:array<string,string>,texto:string,json:mixed} */
     public function req(string $metodo, string $caminho, ?array $corpo = null, bool $comCsrf = true, ?string $csrfForcado = null): array
     {
+        // O token precisa ser buscado ANTES de montar o cabeçalho Cookie: é essa busca que cria a sessão.
+        $tokenCsrf = null;
+        if ($metodo !== 'GET') {
+            if ($csrfForcado !== null) {
+                $tokenCsrf = $csrfForcado;
+            } elseif ($comCsrf) {
+                $tokenCsrf = $this->csrf ??= $this->buscarCsrf();
+            }
+        }
         $cab = ['Accept: application/json'];
         if ($this->cookies !== []) {
             $cab[] = 'Cookie: ' . implode('; ', array_map(fn ($k, $v) => "{$k}={$v}", array_keys($this->cookies), $this->cookies));
         }
-        if ($metodo !== 'GET') {
-            if ($csrfForcado !== null) {
-                $cab[] = 'X-CSRF-Token: ' . $csrfForcado;
-            } elseif ($comCsrf) {
-                $cab[] = 'X-CSRF-Token: ' . ($this->csrf ??= $this->buscarCsrf());
-            }
+        if ($tokenCsrf !== null) {
+            $cab[] = 'X-CSRF-Token: ' . $tokenCsrf;
         }
         $conteudo = '';
         if ($corpo !== null) {
