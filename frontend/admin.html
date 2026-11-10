@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Administração — GameShelf</title>
+    <link rel="icon" href="img/logo.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="css/estilo.css" />
+    <link rel="stylesheet" href="css/conta.css" />
+  </head>
+  <body>
+    <a class="pular-link" href="#conteudo">Pular para o conteúdo</a>
+    <header class="cabecalho">
+      <div class="envolucro cabecalho__interno">
+        <a class="marca" href="index.html">
+          <img src="img/logo.svg" alt="" width="40" height="40" />
+          <span class="marca__nome">GameShelf</span>
+        </a>
+        <nav aria-label="Navegação principal">
+          <ul class="menu">
+            <li><a class="menu__link" href="index.html">Início</a></li>
+            <li><a class="menu__link" href="catalogo.html">Catálogo</a></li>
+            <li><a class="menu__link" href="sugestoes.html">Sugerir um jogo</a></li>
+            <li><a class="menu__link" href="conta.html">Minha conta</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main tabindex="-1" id="conteudo" class="envolucro">
+      <h1>Administração</h1>
+      <div id="mensagem" class="mensagem" role="status" hidden></div>
+      <section class="painel" aria-labelledby="t-usuarios">
+        <h2 id="t-usuarios">Usuários</h2>
+        <p class="campo__ajuda">Para gerenciar o catálogo oficial, use <a href="conta.html">Meu acervo</a>: jogos cadastrados por administradores entram no catálogo oficial.</p>
+        <div class="tabela-rolavel">
+          <table class="tabela-usuarios">
+            <thead><tr><th scope="col">Nome</th><th scope="col">E-mail</th><th scope="col">Perfil</th><th scope="col">Ações</th></tr></thead>
+            <tbody id="usuarios"></tbody>
+          </table>
+        </div>
+        <nav class="paginacao" aria-label="Paginação de usuários">
+          <button class="botao botao--secundario" id="anterior" type="button">Anterior</button>
+          <span id="pagina-atual"></span>
+          <button class="botao botao--secundario" id="proxima" type="button">Próxima</button>
+        </nav>
+      </section>
+    </main>
+    <footer class="rodape">
+      <div class="envolucro">
+        <p class="rodape__nota">Projeto acadêmico de Erick Domingos (SCOM, Trabalho Individual II). Marcas e títulos citados pertencem aos respectivos detentores.</p>
+      </div>
+    </footer>
+    <script src="js/api.js" defer></script>
+    <script src="js/admin.js" defer></script>
+  </body>
+</html>
