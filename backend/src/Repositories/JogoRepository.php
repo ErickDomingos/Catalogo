@@ -27,7 +27,7 @@ final class JogoRepository implements JogoRepositoryInterface
         $direcao = ($filtro['direcao'] ?? 'asc') === 'desc' ? 'DESC' : 'ASC';
         $uid = $filtro['uid'] ?? null;
 
-        $sql = 'SELECT j.id, j.titulo, j.estudio, j.ano, g.nome AS genero, j.console,
+        $sql = 'SELECT j.id, j.slug, j.titulo, j.estudio, j.ano, g.nome AS genero, j.console,
                        j.duracao_horas AS duracao, j.metacritic, j.comunidade, j.resenha, j.capa, j.dono_id,
                        l.estado AS minha_lista
                 FROM jogos j
@@ -57,7 +57,7 @@ final class JogoRepository implements JogoRepositoryInterface
     public function porId(int $id, ?int $uid = null): ?array
     {
         $st = $this->pdo->prepare(
-            'SELECT j.id, j.titulo, j.estudio, j.ano, g.nome AS genero, j.console,
+            'SELECT j.id, j.slug, j.titulo, j.estudio, j.ano, g.nome AS genero, j.console,
                     j.duracao_horas AS duracao, j.metacritic, j.comunidade, j.resenha, j.capa, j.dono_id,
                     l.estado AS minha_lista
              FROM jogos j
