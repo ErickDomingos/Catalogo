@@ -216,6 +216,35 @@ try {
     $apos = $f->req('GET', "/api/jogos/{$id}");
     relatar('CRUD completo de jogo + lista pessoal (criar, editar, marcar "jogando", ler, excluir)', $novo['status'] === 201 && $upd['status'] === 200 && $lst['status'] === 204 && ($ver['json']['jogo']['minha_lista'] ?? '') === 'jogando' && $del['status'] === 204 && $apos['status'] === 404, 'POST=' . $novo['status'] . ' PUT=' . $upd['status'] . ' PUT lista=' . $lst['status'] . ' GET.minha_lista=' . ($ver['json']['jogo']['minha_lista'] ?? '?') . ' DELETE=' . $del['status'] . ' GET apos excluir=' . $apos['status']);
 
+    // 9b) Consistência entre telas: o que a página Catálogo grava aparece em Minha conta (mesmo banco) ---------------
+    [$g, ,] = novoUsuario($base);
+    $titulo = 'Jogo sincronia ' . bin2hex(random_bytes(3));
+    $criado = $g->req('POST', '/api/jogos', ['titulo' => $titulo, 'genero' => 'Aventura', 'plataformas' => ['pc']]);
+    $gid = (int) ($criado['json']['jogo']['id'] ?? 0);
+    $g->req('PUT', "/api/listas/{$gid}", ['estado' => 'quero']);
+    $meus = $g->req('GET', '/api/jogos?escopo=meus&por_pagina=50');
+    $achado = null;
+    foreach ($meus['json']['dados'] ?? [] as $item) {
+        if (($item['id'] ?? 0) === $gid) {
+            $achado = $item;
+        }
+    }
+    $listas = $g->req('GET', '/api/listas');
+    $naLista = false;
+    foreach ($listas['json']['itens'] ?? [] as $item) {
+        if (($item['jogo_id'] ?? 0) === $gid && ($item['estado'] ?? '') === 'quero') {
+            $naLista = true;
+        }
+    }
+    $oficiais = $g->req('GET', '/api/jogos?escopo=oficiais&por_pagina=1');
+    $slugOficial = $oficiais['json']['dados'][0]['slug'] ?? '';
+    relatar(
+        'Jogo e lista criados em uma tela aparecem na outra (escopo=meus, /api/listas) e a API expõe o slug dos oficiais',
+        $criado['status'] === 201 && $achado !== null && ($achado['minha_lista'] ?? '') === 'quero' && $naLista && $slugOficial !== '',
+        'POST=' . $criado['status'] . ' meus.minha_lista=' . ($achado['minha_lista'] ?? 'ausente') . ' /api/listas contém=' . ($naLista ? 'sim' : 'não') . ' slug oficial=' . $slugOficial
+    );
+    $g->req('DELETE', "/api/jogos/{$gid}");
+
     // 10) Admin (opcional: precisa de ADMIN_EMAIL/ADMIN_SENHA no .env e de criar_admin.php executado) -------------------
     $admEmail = Env::get('ADMIN_EMAIL');
     $admSenha = Env::get('ADMIN_SENHA');

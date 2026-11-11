@@ -65,16 +65,7 @@ HowLongToBeat. Campanhas e partidas abertas são diferenciadas. As capas locais
 são artes promocionais de terceiros, com origem documentada. A interface retoma
 roxo escuro, dourado e magenta, com fichas detalhadas e imagens reconhecíveis.
 
-O acervo tenta usar `localStorage`. Os estados pessoais ficam em `gameshelf:listas:v1`.
-Remover um título o exclui das contagens, mas mantém sua marcação para a restauração.
-Não há conta, backup em arquivo ou sincronização. Limpar os dados do navegador apaga as listas. Remoções de jogos iniciais são guardadas em
-`gameshelf:removidos`. O botão de restauração não apaga cadastros pessoais.
-Desfazer recupera apenas a última remoção desta página; não é um histórico permanente.
-Os destaques da página inicial são uma seleção editorial fixa; as remoções personalizam a página Catálogo.
- A chave técnica `pixelteca:meus-jogos` foi
-mantida para preservar os cadastros da versão anterior na mesma origem. Se ler ou
-salvar falhar, avisa e mantém a lista em memória durante a página. Ao abrir por
-`file://`, a persistência varia conforme o navegador; mover a pasta também pode
-mudar o armazenamento acessível. Isso não impede consultar as fichas e testar
-as interações. Os dados não sincronizam entre dispositivos ou navegadores.
-Referência: [MDN sobre localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage).
+**Trabalho 2:** o acervo pessoal e as listas ("Quero jogar", "Jogando", "Já joguei", "Zerado") deixaram de usar
+`localStorage` e passam a ser gravados no banco pela API (`js/acervo.js`). Catálogo e Minha conta leem os mesmos dados,
+então o que é cadastrado ou marcado em uma página aparece na outra, em qualquer navegador. Sem login, o catálogo é
+somente leitura. Os 128 jogos iniciais continuam no HTML e são ligados ao banco pelo `slug` (`base-<slug>`).
