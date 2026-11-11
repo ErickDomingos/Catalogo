@@ -1,80 +1,96 @@
-# GameShelf
+# GameShelf — Trabalho Individual II (SCOM)
 
-Catálogo acadêmico com 128 jogos conhecidos, desenvolvido com HTML5, CSS3
-e JavaScript para o Trabalho Individual I de SCOM. Aluno responsável: Erick
-Domingos.
+Catálogo de 128 jogos (Trabalho 1) evoluído para um sistema cliente-servidor: **PHP 8.1+ puro (sem Composer) + MySQL/MariaDB**, com autenticação por sessão, dois perfis de acesso (usuário e administrador), validação e sanitização no backend, proteções contra SQL Injection, XSS e CSRF, logs com data e hora e testes automatizados.
 
-## Executar
+Autor: Érick Domingos da Silva — Unesp, Instituto de Ciência e Tecnologia (Sorocaba).
 
-Descompacte a pasta e abra `index.html` diretamente em um navegador moderno.
-Todos os recursos do site são locais e usam caminhos relativos. Não há build,
-framework, instalação ou servidor obrigatório. Para incorporar esta versão
-à sua pasta existente.
+## O que o sistema faz
 
+- **Visitante:** consulta o catálogo oficial (busca, filtros, ordenação), sem login.
+- **Usuário:** cadastra jogos privados, edita e exclui os seus, organiza listas (Quero jogar, Jogando, Já joguei, Zerado). Catálogo e "Minha conta" leem e gravam no mesmo banco, então o que se faz em uma página aparece na outra.
+- **Administrador:** tudo do usuário, mais gestão do catálogo oficial (criar, editar e excluir jogos oficiais) e gestão de usuários (listar, mudar perfil, excluir).
 
-## Funcionalidades
+## Estrutura
 
-- Navegação entre início, catálogo e demonstração de sugestão.
-- 128 fichas estáticas disponíveis mesmo sem JavaScript.
-- Busca por título e estúdio, ignorando maiúsculas e acentos.
-- Filtros combinados por gênero, família de plataforma, console da edição, duração e lista pessoal.
-- Duração: menos de 10 h, de 10 a 30 h inclusive, ou mais de 30 h; usa o ponto médio da faixa estimada.
-- Ordenação por título, lançamento, nota ou duração; valores desconhecidos no fim.
-- Adicionar jogos próprios com desenvolvedora, ano, plataformas, duração e notas opcionais.
-- Remover qualquer título, inclusive os 128 iniciais; desfazer a última remoção.
-- Restaurar todos os jogos iniciais preservando os cadastros pessoais.
-- Listas: Quero jogar, Jogando, Já joguei, Zerado e Sem lista; um estado por jogo.
-- Painel com contagens e atalhos, incluindo títulos cadastrados pelo visitante.
-- Notas pesquisadas com plataforma, edição e fonte visíveis.
-- Validação de campos com mensagem associada e foco no primeiro erro.
-- Confirmação explícita de sugestão simulada, sem envio nem armazenamento.
+```
+frontend/   site do Trabalho 1 (HTML/CSS/JS) + telas do Trabalho 2: entrar, conta, admin
+backend/    API PHP: index.php, router.php, src/ (Core, Controllers, Services, Repositories),
+            database/ (schema.sql, seed.php, criar_admin.php, jogos.json), tests/, storage/logs/
+docs/       arquitetura, API, segurança, testes, checklist, declaração de uso de IA e evidências
+```
 
-## Organização
+## Como executar
 
-| Caminho | Responsabilidade |
+Requisitos: PHP 8.1+ (extensões `pdo_mysql` e `mbstring`) e MySQL 8 ou MariaDB 10.4+ (por exemplo, o XAMPP). Os comandos abaixo são para o PowerShell, na pasta raiz do projeto.
+
+**Primeira vez**
+
+```powershell
+# 1. Crie o usuário do banco (uma vez)
+mysql -u root -p
+#   CREATE USER 'gameshelf'@'localhost' IDENTIFIED BY 'SUA_SENHA_DO_BANCO';
+#   GRANT ALL PRIVILEGES ON gameshelf.* TO 'gameshelf'@'localhost';
+
+# 2. Configure o ambiente
+copy backend\.env.example backend\.env      # preencha DB_USER, DB_PASS, ADMIN_EMAIL e ADMIN_SENHA
+
+# 3. Banco, dados e administrador
+mysql -u root -p --default-character-set=utf8mb4 -e "source backend/database/schema.sql"
+php backend\database\seed.php
+php backend\database\criar_admin.php
+```
+
+**Sempre que for usar**
+
+```powershell
+php -S localhost:8000 -t frontend backend\router.php
+```
+
+Abra http://localhost:8000 (início e catálogo) e http://localhost:8000/entrar.html (login e cadastro). O administrador é o e-mail e a senha definidos em `ADMIN_EMAIL` e `ADMIN_SENHA` no `.env`.
+
+> O `backend/.env` guarda senhas e **nunca** vai para o Git nem para o arquivo de entrega. Use `backend/.env.example` como modelo.
+
+## Testes
+
+```powershell
+php backend\tests\run.php                       # 32 testes unitários (não precisam de banco)
+php backend\tests\integration\seguranca.php     # 16 verificações de segurança e integração (servidor ligado)
+```
+
+Os testes de integração criam usuários descartáveis (`teste+...@gameshelf.local`). Para limpar:
+`DELETE FROM usuarios WHERE email LIKE 'teste+%@gameshelf.local';`
+
+O roteiro de testes manuais (visitante, usuário e administrador) e como gerar as evidências estão em `docs/TESTES.md`.
+
+## Problemas comuns
+
+| Sintoma | Causa e solução |
 |---|---|
-| `index.html` | Apresentação, destaques e critérios do acervo |
-| `catalogo.html` | Filtros, 128 fichas e formulário do acervo pessoal |
-| `sugestoes.html` | Demonstração do formulário de sugestão |
-| `css/estilo.css` | Paleta, tipografia, componentes e responsividade |
-| `js/validacao.js` | Validação compartilhada e mensagens por campo |
-| `js/meus-jogos.js` | Cadastro, capas, armazenamento e remoção |
-| `js/listas.js` | Estados pessoais, persistência, seletores e contagens |
-| `js/catalogo.js` | Busca, filtros, ordenação e contagem |
-| `js/formulario.js` | Validação e simulação da sugestão |
-| `img/` | Logo SVG e 128 artes promocionais JPEG locais |
-| `dados/jogos.json` | Registro dos metadados e fontes (não carregado em tempo de execução) |
-| `docs/` |  Fontes
+| Aviso "O banco está sem jogos do catálogo" | O seed não rodou: `php backend\database\seed.php`. |
+| Erro 500 ao abrir o catálogo | MySQL desligado ou `.env` com usuário/senha errados. |
+| Um jogo excluído pelo admin voltou | O `seed.php` repõe todo jogo oficial que estiver faltando. Não rode o seed depois de excluir de propósito. |
+| Login recusado com a senha certa | 5 falhas seguidas bloqueiam e-mail + IP por 15 minutos (HTTP 429). |
+| Foi deslogado sozinho | A sessão expira após 30 minutos sem uso. |
+| Página parece desatualizada | Cache do navegador: Ctrl+F5. |
 
-O HTML carrega scripts clássicos com `defer`. Não usa módulos, `fetch`, CDN
-ou fontes externas. A validação compartilhada é carregada antes dos formulários.
-O acervo comunica alterações pelo evento `gameshelf:acervo-alterado`. As listas usam
-`gameshelf:lista-alterada`; ambos fazem o catálogo reaplicar os filtros.
+## Documentação
 
-## Dados e limites
+| Arquivo | Conteúdo |
+|---|---|
+| `docs/ARQUITETURA.md` | Camadas, pastas, fluxo de dados entre catálogo e banco |
+| `docs/API.md` | Todos os endpoints, parâmetros, exemplos e códigos de status |
+| `docs/SEGURANCA.md` | Matriz de permissões e proteções implementadas |
+| `docs/TESTES.md` | Estratégia de testes, roteiro manual e como gerar evidências |
+| `docs/CHECKLIST-T2.md` | Checklist dos requisitos do enunciado |
+| `docs/USO-DE-IA-T2.md` | Declaração do uso de IA generativa |
+| `docs/evidencias/` | Saída dos testes, amostra de logs e histórico Git |
+| `frontend/README.md` | Detalhes do frontend |
+| `frontend/docs/FONTES.md` | Fontes e créditos do catálogo (Trabalho 1) |
 
-As notas da crítica são Metascores pesquisados no Steam e em fontes secundárias,
-sempre com plataforma e edição identificadas. As fichas também mostram, quando
-confirmado, o percentual de avaliações positivas em inglês no Steam. Fontes,
-critérios e créditos estão em `docs/FONTES.md`. As notas são um retrato da consulta
-de 20–21/09/2026, sem atualização automática. Notas inseridas pelo visitante são
-identificadas como fornecidas por ele, sem verificação editorial.
+## Limitações conhecidas
 
-As durações são faixas editoriais aproximadas, não médias pesquisadas no
-HowLongToBeat. Campanhas e partidas abertas são diferenciadas. As capas locais
-são artes promocionais de terceiros, com origem documentada. A interface retoma
-roxo escuro, dourado e magenta, com fichas detalhadas e imagens reconhecíveis.
-
-O acervo tenta usar `localStorage`. Os estados pessoais ficam em `gameshelf:listas:v1`.
-Remover um título o exclui das contagens, mas mantém sua marcação para a restauração.
-Não há conta, backup em arquivo ou sincronização. Limpar os dados do navegador apaga as listas. Remoções de jogos iniciais são guardadas em
-`gameshelf:removidos`. O botão de restauração não apaga cadastros pessoais.
-Desfazer recupera apenas a última remoção desta página; não é um histórico permanente.
-Os destaques da página inicial são uma seleção editorial fixa; as remoções personalizam a página Catálogo.
- A chave técnica `pixelteca:meus-jogos` foi
-mantida para preservar os cadastros da versão anterior na mesma origem. Se ler ou
-salvar falhar, avisa e mantém a lista em memória durante a página. Ao abrir por
-`file://`, a persistência varia conforme o navegador; mover a pasta também pode
-mudar o armazenamento acessível. Isso não impede consultar as fichas e testar
-as interações. Os dados não sincronizam entre dispositivos ou navegadores.
-Referência: [MDN sobre localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage).
+- Sem HTTPS no ambiente local (em produção, `SESSION_SECURE=true`).
+- Cabeçalhos de segurança (CSP) só nas respostas da API; as páginas HTML estáticas não os enviam.
+- Usuário comum não exclui nem oculta jogos oficiais; só o administrador. No Trabalho 1 a remoção ficava só no navegador (`localStorage`) e foi retirada para não divergir do banco.
+- O formulário "Sugerir um jogo" continua sendo uma demonstração sem envio.
+- Sem migrações de banco: o esquema é recriado por `schema.sql`.

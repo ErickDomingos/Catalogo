@@ -1,0 +1,45 @@
+﻿GameShelf - testes automatizados
+============================================================
+
+# AuthServiceTest.php
+[OK]    AuthService: cadastro guarda hash seguro (nunca a senha) e perfil "usuario"
+[OK]    AuthService: tentativa de se cadastrar como admin (mass assignment) é ignorada
+[OK]    AuthService: e-mail duplicado gera 409 e entrada inválida gera 422
+[OK]    AuthService: login correto devolve o usuário sem o hash e registra login_ok
+[OK]    AuthService: senha errada e e-mail inexistente dão a MESMA resposta 401 e registram login_falha
+[OK]    AuthService: após 5 falhas o login é bloqueado com 429 (mesmo com a senha certa)
+[OK]    AuthService: payload de SQL injection no e-mail é rejeitado antes de qualquer consulta
+
+# JogoServiceTest.php
+[OK]    JogoService: usuário cria jogo privado (dono = ele)
+[OK]    JogoService: admin cria jogo do catálogo oficial
+[OK]    JogoService: dados inválidos (gênero inexistente, ano absurdo) geram 422
+[OK]    JogoService: título duplicado para o mesmo dono gera 409
+[OK]    JogoService: sem plataforma e sem console gera 422
+[OK]    JogoService: console adiciona a família de plataforma automaticamente
+[OK]    JogoService: usuário não edita jogo oficial (403)
+[OK]    JogoService: jogo privado de outro usuário é invisível (404), mas o admin o vê
+[OK]    JogoService: listagem de visitante mostra só o catálogo oficial
+[OK]    JogoService: escopo "meus" sem login gera 401 e parâmetro inválido gera 422
+
+# RouterTest.php
+[OK]    Router: rota pública responde 200 sem login
+[OK]    Router: rota protegida sem login responde 401
+[OK]    Router: perfil insuficiente (usuário em rota admin) responde 403; admin passa
+[OK]    Router: método de escrita sem token CSRF válido responde 403
+[OK]    Router: rota inexistente 404, método errado 405 com cabeçalho Allow, parâmetro capturado
+[OK]    Request::id: id não numérico ou malicioso vira 404 (nunca chega ao banco)
+[OK]    Csrf: Origin de outro site é recusado; mesmo host é aceito
+[OK]    Response: JSON escapa < > & aspas (nenhum HTML ativo no corpo)
+
+# ValidatorTest.php
+[OK]    Validator: texto válido é aceito e aparado
+[OK]    Validator: texto acima do tamanho máximo é rejeitado
+[OK]    Validator: tipo errado (array no lugar de texto) é rejeitado
+[OK]    Validator: sanitização remove tags HTML e caracteres de controle
+[OK]    Validator: inteiro fora da faixa e decimal fora do passo são rejeitados
+[OK]    Validator: senha fraca (sem número ou curta) é rejeitada e forte é aceita
+[OK]    Validator: lancar() responde 422 com campos estruturados
+
+============================================================
+32 teste(s): 32 ok, 0 falha(s)

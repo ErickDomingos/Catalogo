@@ -1,0 +1,13 @@
+# Segredos e configuracao local (NUNCA versionar)
+.env
+backend/.env
+
+# Logs da aplicacao
+backend/storage/logs/*.log
+
+# Temporarios
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+*.zip
