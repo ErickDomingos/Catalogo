@@ -1,0 +1,9 @@
+Amostra de backend/storage/logs/app.log (e-mails de teste mascarados)
+
+[2026-11-09T19:37:23-03:00] INFO login_ok {"usuario_id":1,"ip":"::1"}
+[2026-11-09T18:50:39-03:00] WARNING login_falha {"email":"admin@gameshelf.local","ip":"::1"}
+[2026-11-09T23:08:43-03:00] INFO usuario_criado {"usuario_id":2}
+[2026-11-09T23:08:43-03:00] INFO jogo_criado {"jogo_id":129,"usuario_id":2,"oficial":false}
+[2026-11-09T23:08:46-03:00] WARNING login_bloqueado {"email":"teste+xxxx@gameshelf.local","ip":"::1"}
+[2026-11-10T09:53:13-03:00] ERROR erro_interno {"tipo":"PDOException","mensagem":"SQLSTATE[HY000] [2002] Nenhuma conexão pôde ser feita porque a máquina de destino as recusou ativamente","local":"Database.php:22"}
+[2026-11-09T23:08:44-03:00] INFO logout {"usuario_id":2}

@@ -8,6 +8,7 @@
 | Cadastrar jogo | — | privado (seu) | oficial |
 | Editar/excluir jogo | — | só os seus | qualquer |
 | Editar/excluir jogo oficial | — | — | ✔ |
+| Ocultar jogo oficial só para si | — | não implementado | não implementado |
 | Gerenciar listas pessoais | — | ✔ | ✔ |
 | Listar/alterar/excluir usuários | — | — | ✔ |
 
@@ -26,4 +27,9 @@
 | Segredos | `.env` fora do Git; admin criado por script a partir do `.env` | `Env`, `criar_admin.php` |
 | Log injection | contexto serializado em JSON; senhas nunca logadas | `Logger` |
 
-Limitações conhecidas: sem HTTPS no ambiente local (use `SESSION_SECURE=true` em produção); CSP só nas respostas da API (as páginas HTML estáticas não enviam cabeçalhos de segurança).
+Limitações conhecidas:
+- Sem HTTPS no ambiente local (use `SESSION_SECURE=true` em produção).
+- CSP só nas respostas da API; as páginas HTML estáticas não enviam cabeçalhos de segurança.
+- A validação do navegador (`js/validacao.js`) é só conveniência; a que vale é a do backend, que rejeita tipo, tamanho e faixa inválidos com 422.
+- Nenhuma credencial está no repositório. Os testes de integração criam usuários descartáveis com uma senha fixa de teste (`teste+...@gameshelf.local`), que podem ser apagados ao final.
+- No front, textos vindos do servidor entram na página com `textContent` (nunca `innerHTML`), e excluir exige confirmação.

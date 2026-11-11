@@ -1,11 +1,11 @@
 ﻿GameShelf - testes de segurança e integração
 Alvo: http://localhost:8000
-Data: 2026-11-09T23:08:42-03:00
+Data: 2026-11-10T22:40:09-03:00
 ======================================================================
 
 [PASSOU]  Pré-condição: visitante lê o catálogo oficial (seed executado)
           GET /api/jogos?por_pagina=1
-          => HTTP 200 {"dados":[{"id":28,"titulo":"Age of Empires II: Definitive Edition","estudio":"Forgotten Empires; Tantalus Media; Wicked Witch","ano":2019,"genero":"E
+          => HTTP 200 {"dados":[{"id":167,"slug":"age-of-empires-2","titulo":"Age of Empires II: Definitive Edition","estudio":"Forgotten Empires; Tantalus Media; Wicked Wi
           total no catálogo = 128
 
 [PASSOU]  SQL Injection na busca ("' OR '1'='1") não devolve a tabela inteira
@@ -28,9 +28,9 @@ Data: 2026-11-09T23:08:42-03:00
           => HTTP 404 {"erro":{"status":404,"codigo":"nao_encontrado","mensagem":"Recurso não encontrado."}}
 
 [PASSOU]  XSS armazenado: tags são removidas na entrada e o JSON nunca contém "<"
-          Enviado: <script>alert(1)</script>Jogo XSS 412389
+          Enviado: <script>alert(1)</script>Jogo XSS d7cd81
           POST /api/jogos
-          => HTTP 201 {"jogo":{"id":129,"titulo":"alert(1)Jogo XSS 412389","estudio":null,"ano":null,"genero":"Ação","console":null,"duracao":null,"metacritic":null,"comuni
+          => HTTP 201 {"jogo":{"id":169,"slug":"jogo-ecf5a90d1e18","titulo":"alert(1)Jogo XSS d7cd81","estudio":null,"ano":null,"genero":"Ação","console":null,"duracao":nul
 
 [PASSOU]  XSS refletido: parâmetro malicioso não é refletido; resposta é JSON com nosniff
           GET /api/jogos?genero=<script>...
@@ -52,9 +52,9 @@ Data: 2026-11-09T23:08:42-03:00
           => HTTP 403 {"erro":{"status":403,"codigo":"sem_permissao","mensagem":"Permissão insuficiente para esta ação."}}
           PATCH /api/usuarios/1
           => HTTP 403 {"erro":{"status":403,"codigo":"sem_permissao","mensagem":"Permissão insuficiente para esta ação."}}
-          DELETE /api/jogos/28
+          DELETE /api/jogos/167
           => HTTP 403 {"erro":{"status":403,"codigo":"sem_permissao","mensagem":"Você não tem permissão para alterar este jogo."}}
-          PUT /api/jogos/28
+          PUT /api/jogos/167
           => HTTP 403 {"erro":{"status":403,"codigo":"sem_permissao","mensagem":"Você não tem permissão para alterar este jogo."}}
 
 [PASSOU]  CSRF: escrita sem token ou com token falso é recusada (403)
@@ -67,9 +67,9 @@ Data: 2026-11-09T23:08:42-03:00
 
 [PASSOU]  Login/logout funcionais; sessão antiga e sessão forjada não autenticam (401)
           POST /api/auth/login
-          => HTTP 200 {"usuario":{"id":2,"nome":"Teste Automatico","email":"teste+c7dc550b@gameshelf.local","perfil":"usuario"}}
+          => HTTP 200 {"usuario":{"id":30,"nome":"Teste Automatico","email":"teste+dde3c311@gameshelf.local","perfil":"usuario"}}
           GET /api/auth/me (logado)
-          => HTTP 200 {"usuario":{"id":2,"nome":"Teste Automatico","email":"teste+c7dc550b@gameshelf.local","perfil":"usuario"}}
+          => HTTP 200 {"usuario":{"id":30,"nome":"Teste Automatico","email":"teste+dde3c311@gameshelf.local","perfil":"usuario"}}
           POST /api/auth/logout => HTTP 204
           GET /api/auth/me (cookie antigo reutilizado)
           => HTTP 401 {"erro":{"status":401,"codigo":"nao_autenticado","mensagem":"Autenticação necessária."}}
@@ -78,9 +78,9 @@ Data: 2026-11-09T23:08:42-03:00
 
 [PASSOU]  Cadastro público com "perfil":"admin" é ignorado (nasce como usuario)
           POST /api/auth/registro {perfil:admin}
-          => HTTP 201 {"usuario":{"id":3,"nome":"Teste Automatico","email":"teste+70335ba2@gameshelf.local","perfil":"usuario"}}
+          => HTTP 201 {"usuario":{"id":31,"nome":"Teste Automatico","email":"teste+bb8d92c7@gameshelf.local","perfil":"usuario"}}
           GET /api/auth/me
-          => HTTP 200 {"usuario":{"id":3,"nome":"Teste Automatico","email":"teste+70335ba2@gameshelf.local","perfil":"usuario"}}
+          => HTTP 200 {"usuario":{"id":31,"nome":"Teste Automatico","email":"teste+bb8d92c7@gameshelf.local","perfil":"usuario"}}
 
 [PASSOU]  Rate limiting: 5 falhas seguidas bloqueiam a 6ª tentativa (429)
           Status das 6 tentativas: 401, 401, 401, 401, 401, 429
@@ -88,8 +88,11 @@ Data: 2026-11-09T23:08:42-03:00
 [PASSOU]  CRUD completo de jogo + lista pessoal (criar, editar, marcar "jogando", ler, excluir)
           POST=201 PUT=200 PUT lista=204 GET.minha_lista=jogando DELETE=204 GET apos excluir=404
 
+[PASSOU]  Jogo e lista criados em uma tela aparecem na outra (escopo=meus, /api/listas) e a API expõe o slug dos oficiais
+          POST=201 meus.minha_lista=quero /api/listas contém=sim slug oficial=age-of-empires-2
+
 [PASSOU]  Admin lista usuários e cria/exclui jogo do catálogo oficial
           login=200 GET /api/usuarios=200 POST /api/jogos=201 (oficial) DELETE=204
 
 ======================================================================
-Resultado: 15/15 verificações passaram.
+Resultado: 16/16 verificações passaram.

@@ -32,6 +32,8 @@ Base: `http://localhost:8000/api` · JSON (`Content-Type: application/json`) · 
 | PATCH | `/usuarios/{id}` | A | corpo: `perfil` (usuario/admin) | 204 | 401, 403, 404, 409 (último admin), 422 |
 | DELETE | `/usuarios/{id}` | A | — | 204 | 401, 403, 404, 409 (a si mesmo) |
 
+O objeto `jogo` inclui `slug` (único). Para os 128 jogos do catálogo ele é o mesmo do HTML (`id="base-<slug>"`), e é por ele que a página Catálogo liga cada cartão ao registro do banco.
+
 Outros: 400 JSON inválido · 404 rota inexistente · 405 método não permitido (cabeçalho `Allow`) · 413 corpo > 64 KB · 415 sem `application/json` · 500 erro interno.
 
 **Exemplo — criar jogo**
@@ -43,7 +45,7 @@ Content-Type: application/json
 {"titulo":"Hades","genero":"Roguelike","plataformas":["pc","switch"],"ano":2020,"duracao":22,"metacritic":93}
 ```
 ```json
-201 {"jogo":{"id":129,"titulo":"Hades","estudio":null,"ano":2020,"genero":"Roguelike","console":null,"duracao":22,"metacritic":93,"comunidade":null,"resenha":null,"capa":null,"plataformas":["pc","switch"],"minha_lista":null,"oficial":false,"pode_editar":true}}
+201 {"jogo":{"id":129,"slug":"jogo-3f9a1c0b7d2e","titulo":"Hades","estudio":null,"ano":2020,"genero":"Roguelike","console":null,"duracao":22,"metacritic":93,"comunidade":null,"resenha":null,"capa":null,"plataformas":["pc","switch"],"minha_lista":null,"oficial":false,"pode_editar":true}}
 ```
 **Exemplo — erro de validação**
 ```json
