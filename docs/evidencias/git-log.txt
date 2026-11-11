@@ -1,0 +1,102 @@
+﻿*   cab5c1c merge: Trabalho 2
+|\  
+| * bf48fe9 docs: README, arquitetura, segurança, testes, checklist, uso de IA e evidências finais
+| *   384938b merge: documentação do Trabalho 2
+| |\  
+| | * 1a8bbf2 docs: adiciona declaracao de uso de IA e checklist de requisitos
+| | * 9bd9a2d docs: adiciona README com instrucoes de execucao
+| | * 0f58970 docs: adiciona matriz de permissoes, estrategia de seguranca e de testes
+| | * 84202a7 docs: adiciona arquitetura em camadas e documentacao da API
+| * |   756e482 merge: catálogo e Minha conta sincronizados pela API
+| |\ \  
+| | |/  
+| |/|   
+| | * d7edc7a fix(front): catálogo, conta e início passam a usar o banco como fonte única
+| |/  
+| *   7263fb1 merge: tela de administracao
+| |\  
+| | * c923570 feat(front): adiciona tela de administracao de usuarios
+| |/  
+| *   f4f0ce8 merge: telas do front
+| |\  
+| | * bcf98fe feat(front): adiciona link Minha conta ao menu
+| | * 8c49c2c feat(front): adiciona tela de acervo pessoal com CRUD de jogos e listas
+| | * cb54e87 feat(front): adiciona telas de login e cadastro
+| | * 357b0cc feat(front): adiciona cliente da API com token CSRF e estilos das telas de conta
+| |/  
+| *   1f5936e merge: testes de seguranca
+| |\  
+| | * 4348cb8 docs: adiciona evidencia da execucao dos testes de seguranca
+| | * 91d75e1 fix(test): busca o token CSRF antes de montar o cookie no cliente de teste
+| | * 4bccde3 test(security): adiciona testes de SQL injection, XSS, CSRF, sessao e controle de acesso
+| |/  
+| *   83dd258 merge: API HTTP
+| |\  
+| | * 77aa2b6 Create testes-unitarios.txt
+| | * 37b8faa feat(auth): adiciona script que cria o administrador a partir do .env
+| | * 8cdc032 feat(api): adiciona tabela de rotas e front controller
+| | * f96aed7 feat(api): adiciona controladores de jogos, listas e usuarios
+| | * 4a9663b feat(api): adiciona controlador de cadastro, login, logout e perfil
+| |/  
+| *   d6f03ef merge: autenticacao e regras de negocio
+| |\  
+| | * 16699f3 test: adiciona 32 testes unitarios das regras de negocio
+| | * 0c425a9 feat(api): adiciona regras de jogos e listas (visibilidade, permissoes e validacao)
+| | * ff8f015 feat(auth): adiciona cadastro e login com Argon2id, limite de tentativas e gestao de usuarios
+| | * a774e57 feat(db): adiciona repositorios de jogos e listas pessoais
+| | * 0f74056 feat(db): adiciona repositorio de usuarios com consultas parametrizadas
+| | * 5dcd026 feat(auth): adiciona sessao segura (HttpOnly, SameSite) e token CSRF
+| |/  
+| *   89ab41d merge: nucleo da API
+| |\  
+| | * 525c668 feat(core): adiciona roteador com guardas de acesso e checagem de CSRF
+| | * 368a14c feat(core): adiciona validacao e sanitizacao de entradas
+| | * a553223 feat(core): adiciona logger de aplicacao com timestamp
+| | * ca13042 feat(core): adiciona Request, Response e tratamento centralizado de erros
+| |/  
+| * d3f79a1 fix: ignora .env e logs no .gitignore
+| *   afaf20c merge: banco de dados
+| |\  
+| | * ece64c1 feat(db): adiciona seed do catalogo com os 128 jogos do Trabalho 1
+| | * 70d9cf2 feat(db): adiciona script de criacao do banco (7 tabelas, PK, FK, UNIQUE e CHECK)
+| | * 0a51530 feat(core): adiciona configuracao via .env, conexao PDO e autoloader
+| |/  
+| * 162add8 refactor: separa frontend e backend em pastas
+| * 4d50664 Create .gitattributes
+| * 04e3966 chore: corrige .gitignore (estava como .gitattributes) e normaliza fim de linha
+| * 6f20a0f fix: padroniza nomes de arquivo em minusculas
+|/  
+* 0577316 feet: Correção de erros encontrados pelo W3C
+* 70a4189 docs: adiciona metadados e fontes dos jogos
+* 7a11aea docs: adiciona README com instrucoes de execucao
+* 489dddb docs: adiciona fontes e creditos do catalogo
+* f589a3c fix: padroniza nome da pagina de sugestoes
+* 6e570f6 fix: corrige nome do script de gerenciamento do acervo
+* d48d808 feat: implementa busca filtros e ordenacao do catalogo
+* 644ee83 feat: adiciona listas pessoais para organizar os jogos
+* de4d5a9 feat: implementa gerenciamento do acervo pessoal
+* 9e4bdd1 feat: implementa simulacao do formulario de sugestoes
+* 35ad8ae feat: adiciona validacao compartilhada dos formularios
+* 16709b4 feat: completa acervo de 128 jogos com classicos de Xbox 360
+* 42b0af9 feat: adiciona seis classicos da geracao PlayStation 2
+* ad794ca feat: adiciona oito classicos de PlayStation 3
+* 22911b0 feat: adiciona oito jogos de Nintendo Switch
+* 335c0ae feat: completa selecao de 100 jogos do catalogo
+* 0b2bfcb feat: amplia o acervo de 36 para 68 jogos
+* 096006f feat: adiciona primeiros 36 jogos com fichas completas
+* f011928 feat: integra estrutura e controles da pagina do catalogo
+* 1a85733 feat: estrutura pagina de sugestoes de jogos
+* 1884c41 Update Index.HTML
+* 514b709 feat: integra estrutura e apresentacao da pagina inicial
+* b59bde8 chore: adiciona .gitignore ao projeto
+* 42492f4 chore: remove arquivo cat.HTML antigo
+* a4e5e99 feat: atualiza identidade visual para GameShelf e melhora acessibilidade
+* 5cb7e08 feat: adiciona primeiros cards de jogos (Hollow Knight e Celeste)
+* 7328fb9 feat: encerra formulário de inserção e estrutura contêiner de resultados
+* 9d08f8b Apenas ronomeei o arquivo, tive que fazer um novo comit por isso
+* 49eb708           feat: completa filtros do acervo e adiciona formulário de inclusão de jogos
+* bd75376 feat: cria painel de filtros por busca, gênero e plataforma
+* e2207a8 Create cat.HTML
+* 22c2e74 feat: adiciona cabeçalho de navegação e topo do catálogo
+* 1503048 feat: estrutura cabeçalho HTML e metadados iniciais
+* 65a1443 Initial commit
