@@ -19,6 +19,7 @@
 [OK]    JogoService: console adiciona a família de plataforma automaticamente
 [OK]    JogoService: usuário não edita jogo oficial (403)
 [OK]    JogoService: jogo privado de outro usuário é invisível (404), mas o admin o vê
+[OK]    JogoService: admin lista os jogos de um usuário específico (e só os dele)
 [OK]    JogoService: listagem de visitante mostra só o catálogo oficial
 [OK]    JogoService: escopo "meus" sem login gera 401 e parâmetro inválido gera 422
 
@@ -32,6 +33,10 @@
 [OK]    Csrf: Origin de outro site é recusado; mesmo host é aceito
 [OK]    Response: JSON escapa < > & aspas (nenhum HTML ativo no corpo)
 
+# UsuarioServiceTest.php
+[OK]    UsuarioService: o administrador padrão não pode ser excluído nem rebaixado (409)
+[OK]    UsuarioService: listagem marca o administrador padrão como protegido; usuário comum é excluído normalmente
+
 # ValidatorTest.php
 [OK]    Validator: texto válido é aceito e aparado
 [OK]    Validator: texto acima do tamanho máximo é rejeitado
@@ -42,4 +47,4 @@
 [OK]    Validator: lancar() responde 422 com campos estruturados
 
 ============================================================
-32 teste(s): 32 ok, 0 falha(s)
+35 teste(s): 35 ok, 0 falha(s)

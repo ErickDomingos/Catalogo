@@ -44,6 +44,22 @@
           <button class="botao botao--secundario" id="proxima" type="button">Próxima</button>
         </nav>
       </section>
+      <section class="painel" id="painel-jogos" aria-labelledby="t-jogos" hidden>
+        <h2 id="t-jogos" tabindex="-1">Jogos de <span id="jogos-de"></span></h2>
+        <div class="tabela-rolavel">
+          <table class="tabela-usuarios">
+            <thead><tr><th scope="col">Título</th><th scope="col">Gênero</th><th scope="col">Ano</th><th scope="col">Plataformas</th><th scope="col">Ações</th></tr></thead>
+            <tbody id="jogos-usuario"></tbody>
+          </table>
+        </div>
+        <p class="campo__ajuda" id="jogos-vazio" hidden>Este usuário ainda não cadastrou jogos.</p>
+        <nav class="paginacao" aria-label="Paginação dos jogos do usuário">
+          <button class="botao botao--secundario" id="anterior-jogos" type="button">Anterior</button>
+          <span id="pagina-jogos"></span>
+          <button class="botao botao--secundario" id="proxima-jogos" type="button">Próxima</button>
+        </nav>
+        <button class="botao botao--secundario" id="fechar-jogos" type="button">Fechar</button>
+      </section>
     </main>
     <footer class="rodape">
       <div class="envolucro">

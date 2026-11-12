@@ -21,6 +21,11 @@ final class JogoController
         return Response::json($this->servico->listar($this->auth->usuario(), $req->query));
     }
 
+    public function doUsuario(Request $req, array $params): Response
+    {
+        return Response::json($this->servico->listarDeUsuario((array) $this->auth->usuario(), Request::id($params), $req->query));
+    }
+
     public function obter(Request $req, array $params): Response
     {
         return Response::json(['jogo' => $this->servico->obter($this->auth->usuario(), Request::id($params))]);

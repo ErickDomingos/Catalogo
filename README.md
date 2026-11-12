@@ -53,7 +53,7 @@ Abra http://localhost:8000 (início e catálogo) e http://localhost:8000/entrar.
 ## Testes
 
 ```powershell
-php backend\tests\run.php                       # 32 testes unitários (não precisam de banco)
+php backend\tests\run.php                       # 35 testes unitários (não precisam de banco)
 php backend\tests\integration\seguranca.php     # 16 verificações de segurança e integração (servidor ligado)
 ```
 

@@ -29,8 +29,9 @@ Base: `http://localhost:8000/api` · JSON (`Content-Type: application/json`) · 
 | PUT | `/listas/{jogoId}` | U | corpo: `estado` (quero/jogando/joguei/zerado) | 204 | 401, 403, 404, 422 |
 | DELETE | `/listas/{jogoId}` | U | — | 204 | 401, 403 |
 | GET | `/usuarios` | A | query: `pagina`, `por_pagina` | 200 `{"dados":[...],"paginacao":{...}}` | 401, 403 |
-| PATCH | `/usuarios/{id}` | A | corpo: `perfil` (usuario/admin) | 204 | 401, 403, 404, 409 (último admin), 422 |
-| DELETE | `/usuarios/{id}` | A | — | 204 | 401, 403, 404, 409 (a si mesmo) |
+| GET | `/usuarios/{id}/jogos` | A | query: `pagina`, `por_pagina` (≤50) | 200 `{"dados":[...],"paginacao":{...}}` (jogos privados do usuário) | 401, 403, 422 |
+| PATCH | `/usuarios/{id}` | A | corpo: `perfil` (usuario/admin) | 204 | 401, 403, 404, 409 (último admin ou administrador padrão), 422 |
+| DELETE | `/usuarios/{id}` | A | — | 204 | 401, 403, 404, 409 (a si mesmo ou administrador padrão) |
 
 O objeto `jogo` inclui `slug` (único). Para os 128 jogos do catálogo ele é o mesmo do HTML (`id="base-<slug>"`), e é por ele que a página Catálogo liga cada cartão ao registro do banco.
 

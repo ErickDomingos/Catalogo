@@ -161,6 +161,10 @@ final class JogoRepository implements JogoRepositoryInterface
                 $onde[] = 'j.dono_id IS NULL';
             }
         }
+        if (isset($f['dono'])) { // filtro de administrador: jogos de um usuário específico
+            $onde[] = 'j.dono_id = :dono_f';
+            $p[':dono_f'] = (int) $f['dono'];
+        }
         if ($escopo === 'oficiais') {
             $onde[] = 'j.dono_id IS NULL';
         } elseif ($escopo === 'meus') {

@@ -59,6 +59,34 @@ final class JogoService
     }
 
     /** @param array<string,mixed>|null $usuario */
+    /**
+     * Administração: jogos privados de um usuário específico (a rota só aceita admin).
+     * @param array<string,mixed> $admin
+     * @param array<string,mixed> $query
+     * @return array{dados:list<array<string,mixed>>,paginacao:array<string,int>}
+     */
+    public function listarDeUsuario(array $admin, int $donoId, array $query): array
+    {
+        $v = new Validator($query);
+        $pagina = $v->inteiro('pagina', 'Página', 1, 100000) ?? 1;
+        $porPagina = $v->inteiro('por_pagina', 'Itens por página', 1, 50) ?? 12;
+        $v->lancar();
+
+        $filtro = ['escopo' => 'todos', 'ordem' => 'titulo', 'direcao' => 'asc', 'dono' => $donoId, 'uid' => null, 'admin' => true];
+        $total = $this->jogos->contar($filtro);
+        $itens = $this->jogos->buscar($filtro, $porPagina, ($pagina - 1) * $porPagina);
+
+        return [
+            'dados' => array_map(fn (array $j) => $this->apresentar($j, $admin), $itens),
+            'paginacao' => [
+                'pagina' => $pagina,
+                'por_pagina' => $porPagina,
+                'total' => $total,
+                'paginas' => max(1, (int) ceil($total / $porPagina)),
+            ],
+        ];
+    }
+
     public function obter(?array $usuario, int $id): array
     {
         return $this->apresentar($this->visivelOu404($id, $usuario), $usuario);
