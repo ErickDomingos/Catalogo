@@ -10,7 +10,8 @@
 | Editar/excluir jogo oficial | — | — | ✔ |
 | Ocultar jogo oficial só para si | — | não implementado | não implementado |
 | Gerenciar listas pessoais | — | ✔ | ✔ |
-| Listar/alterar/excluir usuários | — | — | ✔ |
+| Listar/alterar/excluir usuários | — | — | ✔ (exceto o administrador padrão, que é protegido) |
+| Ver os jogos de cada usuário | — | — | ✔ |
 
 ## Proteções
 | Ameaça | Medida | Onde |

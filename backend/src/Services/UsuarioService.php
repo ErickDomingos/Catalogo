@@ -15,7 +15,14 @@ final class UsuarioService
     public function __construct(
         private readonly UsuarioRepositoryInterface $usuarios,
         private readonly Logger $log,
+        private readonly ?string $adminPadraoEmail = null,
     ) {
+    }
+
+    /** O administrador padrão (ADMIN_EMAIL do .env) não pode ser excluído nem rebaixado. */
+    private function protegido(array $usuario): bool
+    {
+        return $this->adminPadraoEmail !== null && strcasecmp((string) $usuario['email'], $this->adminPadraoEmail) === 0;
     }
 
     /**
@@ -30,7 +37,10 @@ final class UsuarioService
         $v->lancar();
         $total = $this->usuarios->contar();
         return [
-            'dados' => $this->usuarios->listar($porPagina, ($pagina - 1) * $porPagina),
+            'dados' => array_map(
+                fn (array $u) => $u + ['protegido' => $this->protegido($u)],
+                $this->usuarios->listar($porPagina, ($pagina - 1) * $porPagina)
+            ),
             'paginacao' => ['pagina' => $pagina, 'por_pagina' => $porPagina, 'total' => $total, 'paginas' => max(1, (int) ceil($total / $porPagina))],
         ];
     }
@@ -46,6 +56,9 @@ final class UsuarioService
         $v->lancar();
 
         $alvo = $this->usuarios->porId($id) ?? throw new HttpException(404, 'Usuário não encontrado.', [], 'nao_encontrado');
+        if ($this->protegido($alvo) && $perfil !== 'admin') {
+            throw new HttpException(409, 'O administrador padrão não pode ser rebaixado.', [], 'conflito');
+        }
         if ($alvo['perfil'] === 'admin' && $perfil !== 'admin' && $this->usuarios->contarAdmins() <= 1) {
             throw new HttpException(409, 'Não é possível rebaixar o último administrador.', [], 'conflito');
         }
@@ -59,7 +72,10 @@ final class UsuarioService
         if ($id === (int) $admin['id']) {
             throw new HttpException(409, 'Você não pode excluir a própria conta por aqui.', [], 'conflito');
         }
-        $this->usuarios->porId($id) ?? throw new HttpException(404, 'Usuário não encontrado.', [], 'nao_encontrado');
+        $alvo = $this->usuarios->porId($id) ?? throw new HttpException(404, 'Usuário não encontrado.', [], 'nao_encontrado');
+        if ($this->protegido($alvo)) {
+            throw new HttpException(409, 'O administrador padrão não pode ser excluído.', [], 'conflito');
+        }
         $this->usuarios->excluir($id);
         $this->log->info('usuario_excluido', ['admin_id' => (int) $admin['id'], 'usuario_id' => $id]);
     }

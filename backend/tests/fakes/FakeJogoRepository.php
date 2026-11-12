@@ -62,6 +62,10 @@ final class FakeJogoRepository implements JogoRepositoryInterface
     private function visiveis(array $f): array
     {
         $uid = $f['uid'] ?? null;
-        return array_filter($this->linhas, fn ($l) => ($f['admin'] ?? false) || $l['dono_id'] === null || $l['dono_id'] === $uid);
+        return array_filter(
+            $this->linhas,
+            fn ($l) => (($f['admin'] ?? false) || $l['dono_id'] === null || $l['dono_id'] === $uid)
+                && (!isset($f['dono']) || ($l['dono_id'] !== null && (int) $l['dono_id'] === (int) $f['dono']))
+        );
     }
 }

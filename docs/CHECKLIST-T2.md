@@ -1,6 +1,6 @@
 # Checklist de requisitos — Trabalho Individual II
 
-Itens marcados `[x]` foram verificados no código e nas execuções dos testes (32 unitários e 16 de integração passando). Os demais dependem de você.
+Itens marcados `[x]` foram verificados no código e nas execuções dos testes (35 unitários e 16 de integração passando). Os demais dependem de você.
 
 **Requisitos obrigatórios**
 - [x] 1 Arquitetura em camadas documentada (`docs/ARQUITETURA.md`)
@@ -11,7 +11,7 @@ Itens marcados `[x]` foram verificados no código e nas execuções dos testes (
 - [x] 6 Proteção: SQL Injection, XSS, CSRF, acesso não autorizado (+ evidências)
 - [x] 7 Erros padronizados (status, mensagem, detalhes só em desenvolvimento)
 - [x] 8 Documentação da API (`docs/API.md`)
-- [x] 9 ≥ 5 testes automatizados (32 unitários) com casos válidos e inválidos
+- [x] 9 ≥ 5 testes automatizados (35 unitários) com casos válidos e inválidos
 - [x] 10 Logs com timestamp: login ok, falha, criação, erro interno
 
 **Entrega**

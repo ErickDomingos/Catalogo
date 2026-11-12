@@ -1,10 +1,10 @@
 # Testes
 
-## 1) Unitários — 32 testes, sem banco
+## 1) Unitários — 35 testes, sem banco
 ```powershell
 php backend\tests\run.php
 ```
-Saída 0 = tudo passou. Cobrem casos válidos e inválidos de `Validator` (7), `JogoService` (10), `AuthService` (7) e `Router`/`Csrf`/`Response` (8), usando repositórios em memória (`tests/fakes`).
+Saída 0 = tudo passou. Cobrem casos válidos e inválidos de `Validator` (7), `JogoService` (11), `UsuarioService` (2), `AuthService` (7) e `Router`/`Csrf`/`Response` (8), usando repositórios em memória (`tests/fakes`).
 
 ## 2) Segurança e integração — 16 verificações, HTTP e banco reais
 Com o servidor ligado em outro terminal (`php -S localhost:8000 -t frontend backend\router.php`):

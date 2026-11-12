@@ -67,6 +67,18 @@ T::teste('JogoService: jogo privado de outro usuário é invisível (404), mas o
     T::igual($privado['id'], $s->obter($admin, $privado['id'])['id']);
 });
 
+T::teste('JogoService: admin lista os jogos de um usuário específico (e só os dele)', function () use ($comum, $outro, $admin, $valido) {
+    $s = novoServicoJogo($repo);
+    $s->criar($comum, $valido);
+    $s->criar($comum, ['titulo' => 'Outro Jogo', 'genero' => 'RPG', 'plataformas' => ['pc']]);
+    $s->criar($outro, $valido);
+    $s->criar($admin, ['titulo' => 'Oficial', 'genero' => 'Ação', 'plataformas' => ['xbox']]);
+    $r = $s->listarDeUsuario($admin, $comum['id'], []);
+    T::igual(2, $r['paginacao']['total']);
+    T::igual(2, count($r['dados']));
+    T::igual(1, $s->listarDeUsuario($admin, $outro['id'], [])['paginacao']['total']);
+});
+
 T::teste('JogoService: listagem de visitante mostra só o catálogo oficial', function () use ($comum, $admin, $valido) {
     $s = novoServicoJogo($repo);
     $s->criar($comum, $valido);

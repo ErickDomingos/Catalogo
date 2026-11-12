@@ -49,7 +49,9 @@ final class UsuarioRepository implements UsuarioRepositoryInterface
 
     public function listar(int $limite, int $offset): array
     {
-        $st = $this->pdo->prepare('SELECT id, nome, email, perfil, criado_em FROM usuarios ORDER BY id LIMIT :limite OFFSET :offset');
+        $st = $this->pdo->prepare('SELECT u.id, u.nome, u.email, u.perfil, u.criado_em,
+                    (SELECT COUNT(*) FROM jogos j WHERE j.dono_id = u.id) AS total_jogos
+             FROM usuarios u ORDER BY u.id LIMIT :limite OFFSET :offset');
         $st->bindValue(':limite', $limite, PDO::PARAM_INT);
         $st->bindValue(':offset', $offset, PDO::PARAM_INT);
         $st->execute();
@@ -105,6 +107,9 @@ final class UsuarioRepository implements UsuarioRepositoryInterface
             return null;
         }
         $linha['id'] = (int) $linha['id'];
+        if (isset($linha['total_jogos'])) {
+            $linha['total_jogos'] = (int) $linha['total_jogos'];
+        }
         return $linha;
     }
 }

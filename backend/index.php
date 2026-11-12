@@ -42,7 +42,7 @@ try {
         new AuthController(new AuthService($repoUsuarios, $log), $auth, $log),
         new JogoController(new JogoService($repoJogos, $log), $auth),
         new ListaController(new ListaService($repoListas, $repoJogos), $auth),
-        new UsuarioController(new UsuarioService($repoUsuarios, $log), $auth),
+        new UsuarioController(new UsuarioService($repoUsuarios, $log, Env::get('ADMIN_EMAIL') ?: null), $auth),
     );
 
     $resposta = $router->despachar($req);

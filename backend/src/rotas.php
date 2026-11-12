@@ -27,6 +27,7 @@ return static function (Router $r, AuthController $auth, JogoController $jogos, 
     $r->adicionar('DELETE', '/listas/{jogoId}', $listas->remover(...), 'usuario');
 
     $r->adicionar('GET', '/usuarios', $usuarios->listar(...), 'admin');
+    $r->adicionar('GET', '/usuarios/{id}/jogos', $jogos->doUsuario(...), 'admin');
     $r->adicionar('PATCH', '/usuarios/{id}', $usuarios->alterarPerfil(...), 'admin');
     $r->adicionar('DELETE', '/usuarios/{id}', $usuarios->excluir(...), 'admin');
 };
